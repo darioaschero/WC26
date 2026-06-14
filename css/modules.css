@@ -56,4 +56,137 @@
     }
   }
   /* ╚════════════════════════════════════════════════════════════════════╝ */
+
+  /* ╔═ .cards ═ carosello full-bleed con snap a pagine ═══════════════════╗
+     Card "terzo" = inner/3. I wrapper .slide sono OPZIONALI: servono solo
+     dove una pagina raggruppa card "doppie" (1/2). Senza .slide è una fila
+     piatta di terzi (la maggior parte dei caroselli).
+       <1024 → fila piatta full-bleed (100vw), snap per-card; .slide collassa.
+       ≥1024 → full-bleed fino alla cornice; card/slide incolonnate sulla
+               griglia (3 per pagina), snap.                             ╚═╝ */
+  .cards {
+    --card-3: 18.5rem;                   /* "terzo" su mobile = 296 */
+    display: flex;
+    gap: var(--space-24);                /* gutter = quello di sezione */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    align-items: start;                  /* non stirare: vince l'aspect-ratio */
+
+    inline-size: 100vw;                  /* <1024: full-bleed al viewport */
+    margin-inline: calc(50% - 50vw);     /* breakout assorbito da overflow-x: clip su html */
+    padding-inline: var(--pad);          /* prima/ultima card a filo contenuto (24 → 44) */
+    scroll-padding-inline: var(--pad);
+    padding-block: var(--space-24);      /* y=24: la scrollbar resta fuori dalle card */
+  }
+  /* scroll animato (click frecce + assestamento snap); il drag resta 1:1 */
+  @media (prefers-reduced-motion: no-preference) {
+    .cards { scroll-behavior: smooth; }
+  }
+
+  /* card "terzo": 2:3 RIGIDO, numero ancorato in basso */
+  .card {
+    flex: 0 0 var(--card-3);             /* 296 — fisso sotto 1024 */
+    scroll-snap-align: start;
+    aspect-ratio: 2 / 3;
+    min-block-size: 0;                   /* il ratio vince: il contenuto non allunga la card */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    padding: var(--space-16);
+    background: var(--fg);               /* PLACEHOLDER */
+    color: var(--bg);
+  }
+  /* card "doppia" (1/2): su mobile ~contenuto, MAX 2 terzi → non cresce su tablet.
+     Niente ratio fissa: l'altezza è SLEGATA dalla larghezza e = quella di un terzo. */
+  .slide--halves > .card {
+    flex-basis: 100%;
+    max-inline-size: calc(2 * var(--card-3) + var(--space-24));   /* 38.5rem = 296×2 + gutter */
+    aspect-ratio: auto;
+    block-size: calc(var(--card-3) * 3 / 2);                      /* mobile: = altezza terzo (296×3/2) */
+  }
+  /* mobile: le pagine non contano → le slide collassano, le card sfilano piatte */
+  .slide { display: contents; }
+
+  .card__media { aspect-ratio: 3 / 2; background: var(--bg); opacity: .12; }  /* segnaposto */
+  .card__name  { font-size: 1.15em; }
+  .card__value { margin-block-start: auto; }
+  .card__value strong { display: block; font-size: 1.6em; line-height: 1; }
+  .card__value span   { font-size: .8em; opacity: .65; }
+
+  /* toggle "Voir tout" (su entrambi i caroselli, da 1024) */
+  .cards-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-16); }
+  .cards-toggle, .cards-more { display: none; }   /* <1024 niente toggle: anche la checkbox fuori dal tab order */
+  .cards-toggle:focus-visible + .cards-more { outline: 2px solid var(--line); outline-offset: 2px; }
+
+  @media (min-width: 64em) {
+    /* da 1024 il carosello resta DENTRO --inner (croppato): annullo il full-bleed base.
+       grid-column = var(--inner) lo eredita da `.section > *`. */
+    .cards {
+      inline-size: auto;
+      margin-inline: 0;
+      padding-inline: 0;
+      scroll-padding-inline: 0;
+      anchor-name: --cards;             /* àncora per le frecce */
+      anchor-scope: --cards;            /* privato per ogni carosello: niente collisione tra istanze */
+      container-type: inline-size;      /* àncora per le cqw delle doppie; 100cqw = --inner.
+                                           Su .cards (non .slide) così vale anche in griglia,
+                                           dove le slide collassano (display: contents). */
+    }
+    /* terzo flat = inner/3; snap a PAGINE di 3 (non per-card) — il "blocchi di 3" */
+    .cards > .card { flex-basis: calc((100% - 2 * var(--space-24)) / 3); scroll-snap-align: none; }
+    .cards > .card:nth-child(3n + 1) { scroll-snap-align: start; scroll-snap-stop: always; }
+
+    /* slide = pagina che si aggancia; dentro, le card si dividono lo spazio */
+    .slide {
+      display: flex;
+      align-items: start;
+      gap: var(--space-24);
+      flex: 0 0 100%;                    /* pagina = fascia interna */
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+    .slide > .card { flex: 1; max-inline-size: none; scroll-snap-align: none; }  /* 1/2 o 1/3 automatico */
+    /* la doppia: altezza = quella di un terzo = (inner − 2·gutter)/2 = 50cqw − gutter */
+    .slide--halves > .card { block-size: calc(50cqw - var(--space-24)); }
+
+    /* frecce (enhancement Chrome/Edge): glifo sottile nei margini verdi a lato di --inner
+       (croppato in inner → niente card sotto le frecce). In griglia spariscono (regola sotto). */
+    .cards::scroll-button(left),
+    .cards::scroll-button(right) {
+      position: absolute;
+      position-anchor: --cards;
+      top: anchor(center);
+      transform: translateY(-50%);
+      border: 0; background: none;
+      font-size: 2em; line-height: 1;
+      color: var(--fg); cursor: pointer;
+    }
+    .cards::scroll-button(left)  { content: "‹" / "Précédent"; inset-inline-end:   calc(anchor(left)  + var(--space-08)); }
+    .cards::scroll-button(right) { content: "›" / "Suivant";   inset-inline-start: calc(anchor(right) + var(--space-08)); }
+    .cards::scroll-button(left):disabled,
+    .cards::scroll-button(right):disabled { opacity: .3; cursor: default; }
+
+    /* toggle → griglia: rientra nella fascia interna, niente bleed/scroll */
+    .cards-toggle { display: revert; }   /* da 1024 torna operabile (resta sr-only) */
+    .cards-more { display: inline-flex; cursor: pointer; }
+    .cards-more::after { content: " ↓" / ""; }   /* freccia decorativa: alt vuoto → fuori dal nome accessibile */
+    .cards-section:has(.cards-toggle:checked) .cards-more::after { content: " ↑" / ""; }
+    .cards-section:has(.cards-toggle:checked) .cards {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);   /* 6 col: terzo = span 2 (1/3), doppia = span 3 (1/2) */
+      grid-column: var(--inner);
+      inline-size: auto;
+      margin-inline: 0;
+      padding-inline: 0;
+      overflow: clip;                   /* niente scroll in griglia */
+    }
+    /* in griglia le slide diventano trasparenti → le card entrano nella griglia mantenendo la taglia */
+    .cards-section:has(.cards-toggle:checked) .slide { display: contents; }
+    .cards-section:has(.cards-toggle:checked) .card { grid-column: span 2; }                   /* terzo = 1/3 */
+    .cards-section:has(.cards-toggle:checked) .slide--halves > .card { grid-column: span 3; }  /* doppia = 1/2 */
+    /* in griglia Chromium genera le frecce lo stesso (overflow:visible non basta) → via */
+    .cards-section:has(.cards-toggle:checked) .cards::scroll-button(left),
+    .cards-section:has(.cards-toggle:checked) .cards::scroll-button(right) { display: none; }
+  }
 }
