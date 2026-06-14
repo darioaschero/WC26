@@ -1,0 +1,37 @@
+@layer tokens {
+  :root {
+    /* ── Spacing scale ── */
+    --space-00: 0;
+    --space-04: 0.25rem;  /*   4px */
+    --space-08: 0.5rem;   /*   8px */
+    --space-12: 0.75rem;  /*  12px */
+    --space-16: 1rem;     /*  16px */
+    --space-24: 1.5rem;   /*  24px */
+    --space-32: 2rem;     /*  32px */
+    --space-44: 2.75rem;  /*  44px */
+    --space-72: 4.5rem;   /*  72px */
+    --space-96: 6rem;     /*  96px */
+    --space-144: 9rem;    /* 144px */
+
+    /* ── Breakpoint (RIFERIMENTO / doc) ──
+       Le custom properties NON funzionano dentro la condizione @media:
+       il valore va scritto literal in ogni @media. Qui restano come fonte
+       unica documentata; il giorno che entra PostCSS diventano @custom-media. */
+    --bp-sm: 45em;     /*  720px — tablet            */
+    --bp-md: 64em;     /* 1024px — fine-grid 32 col  */
+    --bp-lg: 74em;     /* 1184px — fine-grid 37 col  */
+    --bp-xl: 86.25em;  /* 1380px — cornice           */
+
+    /* ── Misure derivate dal bodytext (× body) ──
+       PLACEHOLDER da tarare. Sostituiscono i literal 1102/1308. */
+    --measure: 32.5;   /* colonna di lettura = 32.5 × body  (552px @17)       */
+    --container: 74;   /* container TOTALE (padding incl.) = 74 × body
+                          → 1332 @body18 (1308+24) · 1480 @body20 (1456+24)   */
+
+    /* ── Colori (PLACEHOLDER — da campionare dal mock) ── */
+    --bg: #16a34a;     /* verde campo */
+    --fg: #ffffff;
+    --line: #ffffff;   /* colore dei filetti: separatori, regola, cornice */
+    --hairline: 1px;   /* spessore dei filetti */
+  }
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FIFA World Cup 2026 — Le Grand Continent</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <!-- .page = container con max-width + cornice (da 1380): avvolge tutto -->
+  <div class="page">
+
+    <header class="masthead">
+      <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <ol>
+          <li><a href="/">Une</a></li>
+          <li aria-current="page">WC26</li>
+        </ol>
+      </nav>
+      <a class="brand" href="/" aria-label="Le Grand Continent — accueil">GC</a>
+      <a class="masthead__cta" href="/abonnement">S'abonner</a>
+    </header>
+
+    <main id="content">
+
+      <!-- ── Sezione 1 — .section.split: primary + aside sulla fine grid ── -->
+      <section class="section split" aria-labelledby="dossier-title">
+
+        <div class="split__primary">
+          <h1 id="dossier-title">
+            <span class="sr-only">FIFA World Cup 2026</span>
+            <span class="wordmark" aria-hidden="true">
+              <!-- pezzi SVG <text> in flex: [FIFA WORLD] · [CUP+cerchio+2026] · [2026] -->
+            </span>
+          </h1>
+          <p class="lede">
+            <!-- intro editoriale (drop-cap via ::first-letter) -->
+            Après le Qatar et la Russie de Poutine, c'est au tour des États-Unis…
+          </p>
+        </div>
+
+        <aside class="split__secondary" aria-labelledby="latest-title">
+          <h2 id="latest-title">Derniers</h2>
+
+          <article class="teaser">
+            <h3><a href="#">Les États-Unis peuvent-ils vraiment aller si loin dans la Coupe du monde 2026 ?</a></h3>
+            <p>La Coupe du monde débute ce soir pour les États-Unis, avec des attentes plutôt élevées.</p>
+            <time datetime="2026-06-14T10:00+02:00">il y a 2 heures</time>
+          </article>
+
+          <article class="teaser">
+            <h3><a href="#">Israël a jeté le discrédit sur le football, selon la Fifa</a></h3>
+            <p>La Fédération israélienne de football est condamnée par la commission de discipline de la Fifa, mais n'est pas exclue et n'écope que de 190 000 $.</p>
+            <time datetime="2026-06-14T09:00+02:00">il y a 3 heures</time>
+          </article>
+
+          <a class="more" href="#">Voir tout</a>
+        </aside>
+
+        <!-- regola verticale: .split::before, nessun nodo -->
+      </section>
+
+      <hr class="section-rule">
+
+      <!-- ── Stub sezioni successive ── -->
+      <section class="section" aria-labelledby="figures-title">
+        <h2 id="figures-title">Chiffres clés de la Coupe du monde</h2>
+      </section>
+
+      <hr class="section-rule">
+
+      <section class="section" aria-labelledby="sim-title">
+        <h2 id="sim-title">Qui gagnera la Coupe du monde ?</h2>
+      </section>
+
+      <hr class="section-rule">
+
+      <section class="section" aria-labelledby="guide-title">
+        <h2 id="guide-title">Coupe du monde 2026, le guide des 48 équipes</h2>
+      </section>
+
+      <hr class="section-rule">
+
+      <section class="section" aria-labelledby="news-title">
+        <h2 id="news-title">Derniers dans la Coupe du monde</h2>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>Publié par le Groupe d'Études Géopolitiques</p>
+      <nav aria-label="Légal">
+        <a href="#">Informations légales</a>
+        <a href="#">Conditions générales de vente</a>
+      </nav>
+    </footer>
+
+  </div>
+
+</body>
+</html>
