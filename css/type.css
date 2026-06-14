@@ -1,0 +1,28 @@
+@layer type {
+  :root {
+    --body: 1.0625rem;   /* 17px — base, non scala sotto 1184 */
+  }
+
+  /* Rampa fluida del bodytext. Endpoint in rem → onora la preferenza font
+     dell'utente; interpolazione in vw → fluida nel range. Il clamp fa il
+     plateau da solo (18px tenuto tra 1332 e 1428). */
+  @media (min-width: 74em) {       /* 1184px → 17 ramp 18 (fino a 1332) */
+    :root { --body: clamp(1.0625rem, 0.5625rem + 0.6757vw, 1.125rem); }
+    /*                   17px        9px(rem) + slope        18px        */
+  }
+  @media (min-width: 89.25em) {    /* 1428px → 18 ramp 20 (fino a 1576) */
+    :root { --body: clamp(1.125rem, -0.081rem + 1.3514vw, 1.25rem); }
+    /*                   18px       slope                  20px        */
+  }
+
+  /* Titoli = multipli del bodytext (em nel contesto a --body).
+     Multipli PLACEHOLDER: da fissare col disegno della scala tipografica. */
+  .lede { font-size: 1em;    line-height: 1.45; }   /* = body */
+  h2    { font-size: 1.6em;  line-height: 1.15; }
+  h3    { font-size: 1.15em; line-height: 1.2;  }
+}
+
+@layer utilities {
+  /* colonna di lettura centrata ≈ measure × body */
+  .measure { max-inline-size: calc(var(--body) * var(--measure)); margin-inline: auto; }
+}

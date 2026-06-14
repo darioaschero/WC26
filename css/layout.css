@@ -1,0 +1,86 @@
+@layer layout {
+  :root {
+    --pad: var(--space-24);   /* 24 — mobile */
+  }
+  @media (min-width: 45em) { :root { --pad: var(--space-44); } }  /*  720 → 44 */
+  @media (min-width: 64em) { :root { --pad: var(--space-12); } }  /* 1024 → 12 */
+
+  /* ── CONTAINER ────────────────────────────────────────────────────────
+     max-width = body × 74 (TOTALE): 1332 @body18 · 1480 @body20.
+     Centra masthead/main/footer. NIENTE padding qui: lo mettono i figli,
+     così la cornice su <main> arriva al bordo del container (1332) e non
+     viene rientrata dal padding di 12. */
+  .page {
+    inline-size: 100%;
+    max-inline-size: calc(var(--body) * var(--container));
+    margin-inline: auto;
+  }
+  .page > * { padding-inline: var(--pad); }   /* header, main, footer → contenuto 1308 */
+
+  /* Sotto la cornice: un bordo sopra e uno sotto separano header e footer
+     dal main (full-viewport, come i separatori di sezione). */
+  main::before,
+  main::after {
+    content: "";
+    display: block;
+    block-size: 1px;
+    background: var(--line);
+    inline-size: 100vw;
+    margin-inline: calc(50% - 50vw);
+  }
+
+  /* CORNICE — solo su <main>, da 1380. header e footer restano FUORI.
+     outline = sul bordo a 1332, non tocca il box (contenuto resta 1308). */
+  @media (min-width: 86.25em) {
+    main { outline: 1px solid var(--line); }
+    /* da quando c'è la cornice, header e footer vanno a filo del bordo */
+    .masthead, .site-footer { padding-inline: 0; }
+    /* la cornice sostituisce i bordi sopra/sotto del main */
+    main::before, main::after { display: none; }
+  }
+
+  /* ── Fine grid condivisa dalle sezioni ──────────────────────────────── */
+  .section {
+    --section-pad-y: var(--space-72);  /* ritmo verticale; il separatore verticale ci si aggancia per arrivare ai bordi */
+    display: grid;
+    column-gap: var(--space-24);
+    row-gap: var(--space-44);
+    padding-block: var(--section-pad-y);
+  }
+  .section > * { grid-column: var(--inner, 1 / -1); }
+  @media (min-width: 64em) { .section { grid-template-columns: repeat(32, 1fr); --inner: 2 / -2; } }
+  @media (min-width: 74em) { .section { grid-template-columns: repeat(37, 1fr); --inner: 3 / -3; } }
+
+  /* ── Separatori di sezione ─────────────────────────────────────────────
+     < 1380: full-viewport (overflow-x:clip su html assorbe lo sforo scrollbar).
+     ≥ 1380: raggiungono la cornice scavalcando il padding (margine negativo). */
+  .section-rule {
+    border: 0;
+    block-size: 1px;
+    background: var(--line);
+    inline-size: 100vw;
+    margin-inline: calc(50% - 50vw);
+  }
+  @media (min-width: 86.25em) {
+    .section-rule { inline-size: auto; margin-inline: calc(-1 * var(--pad)); }
+  }
+
+  /* ── masthead / footer (dentro .page, FUORI dalla cornice) ── */
+  .masthead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-16);
+    padding-block: var(--space-16);
+  }
+  .breadcrumb ol { display: flex; gap: var(--space-08); }
+
+  .site-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-16);
+    justify-content: space-between;
+    padding-block: var(--space-72) var(--space-32);
+  }
+  .site-footer nav { display: flex; gap: var(--space-24); }
+}
