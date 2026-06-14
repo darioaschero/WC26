@@ -6,7 +6,14 @@
     font-size: 100%;              /* 16px — ancora utente, niente hack 62.5% */
     -webkit-text-size-adjust: 100%;
     scrollbar-gutter: stable;     /* niente shift quando compare la scrollbar */
-    overflow-x: clip;             /* assorbe lo sforo scrollbar dei separatori 100vw */
+    /* TUTTO il full-bleed (separatori 100vw + breakout) dipende da questa riga:
+       assorbe lo sforo della scrollbar; senza, scroll orizzontale ovunque. */
+    overflow-x: clip;
+  }
+  /* fallback dove overflow:clip non è supportato (hidden crea uno scroll
+     container, ma qui è innocuo) */
+  @supports not (overflow: clip) {
+    html { overflow-x: hidden; }
   }
 
   body { min-height: 100svh; -webkit-font-smoothing: antialiased; }

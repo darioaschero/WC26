@@ -21,8 +21,3 @@
   h2    { font-size: 1.6em;  line-height: 1.15; }
   h3    { font-size: 1.15em; line-height: 1.2;  }
 }
-
-@layer utilities {
-  /* colonna di lettura centrata ≈ measure × body */
-  .measure { max-inline-size: calc(var(--body) * var(--measure)); margin-inline: auto; }
-}

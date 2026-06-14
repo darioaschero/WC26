@@ -31,6 +31,7 @@
     /* ── Colori (PLACEHOLDER — da campionare dal mock) ── */
     --bg: #16a34a;     /* verde campo */
     --fg: #ffffff;
-    --line: #ffffff;   /* hairline: separatori, regola, cornice */
+    --line: #ffffff;   /* colore dei filetti: separatori, regola, cornice */
+    --hairline: 1px;   /* spessore dei filetti */
   }
 }

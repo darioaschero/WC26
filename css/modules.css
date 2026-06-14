@@ -27,7 +27,7 @@
     grid-column: 1 / -1;
     inline-size: 100vw;
     margin-inline: calc(50% - 50vw);
-    block-size: 1px;
+    block-size: var(--hairline);
     background: var(--line);
   }
 
@@ -42,7 +42,7 @@
     .split::before {
       grid-column: var(--col-rule);
       justify-self: center;
-      inline-size: 1px;
+      inline-size: var(--hairline);
       margin-inline: 0;
       block-size: auto;
       margin-block: calc(-1 * var(--section-pad-y));   /* scavalca il padding-block → tocca i bordi */
