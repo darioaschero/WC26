@@ -64,8 +64,56 @@
       <hr class="section-rule">
 
       <!-- ── Stub sezioni successive ── -->
-      <section class="section" aria-labelledby="figures-title">
-        <h2 id="figures-title">Chiffres clés de la Coupe du monde</h2>
+      <!-- ── carosello "doppio" (slide opzionali): pagine da 2 card a 1/2 ── -->
+      <section class="section cards-section" aria-labelledby="figures-title">
+        <div class="cards-head">
+          <h2 id="figures-title">Chiffres clés de la Coupe du monde</h2>
+          <input type="checkbox" id="figures-grid" class="cards-toggle sr-only">
+          <label for="figures-grid" class="cards-more">Voir tout</label>
+        </div>
+
+        <!-- Lista accessibile di 7 card: .cards = role list, le slide (pagine) sono
+             presentational (trasparenti), le card sono i listitem. -->
+        <div class="cards" role="list">
+          <div class="slide slide--halves" role="presentation">
+            <article class="card" role="listitem">
+              <h3 class="card__name"><a href="#">Les équipes les mieux classées sont-elles celles qui coûtent le plus cher&nbsp;?</a></h3>
+              <span class="card__media" aria-hidden="true"></span>
+            </article>
+            <article class="card" role="listitem">
+              <h3 class="card__name"><a href="#">Stades de la Coupe du monde 2026</a></h3>
+              <span class="card__media" aria-hidden="true"></span>
+            </article>
+          </div>
+          <!-- slide da TERZI in mezzo a due da mezzi: verifica le pagine miste -->
+          <div class="slide" role="presentation">
+            <article class="card" role="listitem">
+              <span class="card__media" aria-hidden="true"></span>
+              <h3 class="card__name"><a href="#">Joueurs</a></h3>
+              <p class="card__value"><strong>1&nbsp;248</strong><span>sélectionnés</span></p>
+            </article>
+            <article class="card" role="listitem">
+              <span class="card__media" aria-hidden="true"></span>
+              <h3 class="card__name"><a href="#">Matchs</a></h3>
+              <p class="card__value"><strong>104</strong><span>du 11 juin au 19 juillet</span></p>
+            </article>
+            <article class="card" role="listitem">
+              <span class="card__media" aria-hidden="true"></span>
+              <h3 class="card__name"><a href="#">Équipes</a></h3>
+              <p class="card__value"><strong>48</strong><span>une première</span></p>
+            </article>
+          </div>
+          <div class="slide slide--halves" role="presentation">
+            <article class="card" role="listitem">
+              <h3 class="card__name"><a href="#">Calendrier des 104 matchs</a></h3>
+              <span class="card__media" aria-hidden="true"></span>
+            </article>
+            <article class="card" role="listitem">
+              <h3 class="card__name"><a href="#">Groupes et qualifications</a></h3>
+              <span class="card__media" aria-hidden="true"></span>
+            </article>
+          </div>
+        </div>
       </section>
 
       <hr class="section-rule">
@@ -76,8 +124,43 @@
 
       <hr class="section-rule">
 
-      <section class="section" aria-labelledby="guide-title">
-        <h2 id="guide-title">Coupe du monde 2026, le guide des 48 équipes</h2>
+      <!-- ── .cards in modalità toggle (Opz.1): carosello ↔ griglia ──
+           5 card stub: il markup statico resta leggero; in reale le 48 squadre
+           arriverebbero da un template/CMS. -->
+      <section class="section cards-section" aria-labelledby="guide-title">
+        <div class="cards-head">
+          <h2 id="guide-title">Coupe du monde 2026, le guide des 48 équipes</h2>
+          <input type="checkbox" id="guide-grid" class="cards-toggle sr-only">
+          <label for="guide-grid" class="cards-more">Voir tout</label>
+        </div>
+
+        <ul class="cards">
+          <li class="card">
+            <span class="card__media" aria-hidden="true"></span>
+            <h3 class="card__name"><a href="#">Argentine</a></h3>
+            <p class="card__value"><strong>799,50 M</strong><span>Valorisation in €</span></p>
+          </li>
+          <li class="card">
+            <span class="card__media" aria-hidden="true"></span>
+            <h3 class="card__name"><a href="#">Sénégal</a></h3>
+            <p class="card__value"><strong>478,1 M</strong><span>Valorisation in €</span></p>
+          </li>
+          <li class="card">
+            <span class="card__media" aria-hidden="true"></span>
+            <h3 class="card__name"><a href="#">Norvège</a></h3>
+            <p class="card__value"><strong>589,9 M</strong><span>Valorisation in €</span></p>
+          </li>
+          <li class="card">
+            <span class="card__media" aria-hidden="true"></span>
+            <h3 class="card__name"><a href="#">Irak</a></h3>
+            <p class="card__value"><strong>21,2 M</strong><span>Valorisation in €</span></p>
+          </li>
+          <li class="card">
+            <span class="card__media" aria-hidden="true"></span>
+            <h3 class="card__name"><a href="#">Brésil</a></h3>
+            <p class="card__value"><strong>1,12 Md</strong><span>Valorisation in €</span></p>
+          </li>
+        </ul>
       </section>
 
       <hr class="section-rule">
