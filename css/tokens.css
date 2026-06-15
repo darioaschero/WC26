@@ -13,6 +13,25 @@
     --space-96: 6rem;     /*  96px */
     --space-144: 9rem;    /* 144px */
 
+    /* ── Famiglie tipografiche ──
+       body serif (Publico), display serif (Sanomat), sans (National),
+       hero condensato (Manuka). Le @font-face stanno in fonts.css. */
+    --font-body:      "Publico Text", Georgia, "Times New Roman", serif;
+    --font-display:   "Sanomat", Georgia, "Times New Roman", serif;
+    --font-sans:      "National", -apple-system, BlinkMacSystemFont,
+                      "Segoe UI", Helvetica, Arial, sans-serif;
+    --font-condensed: "Manuka Condensed", "Arial Narrow", sans-serif;
+
+    /* ── Pesi ── */
+    --weight-book:     400;
+    --weight-semibold: 600;
+
+    /* ── Correzione ottica National ──
+       A parità di taglia National legge più piccolo del serif: quando sta a
+       taglia-body va scalato ×1.16 (= typeset-size-scale "alt" in LGC).
+       L'interlinea usa l'inverso (1/1.16) così il box di riga resta = body. */
+    --national-scale: 1.16;
+
     /* ── Breakpoint (RIFERIMENTO / doc) ──
        Le custom properties NON funzionano dentro la condizione @media:
        il valore va scritto literal in ogni @media. Qui restano come fonte

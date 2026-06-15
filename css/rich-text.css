@@ -1,0 +1,91 @@
+@layer modules {
+  /* ============================================================
+     RICH TEXT — prosa lunga (output CMS) con la tipografia del DS.
+     Versione WC26: una sola variante, NIENTE assi, NIENTE colore
+     (tutto currentColor). Facce fissate:
+       corpo · p · h3 = serif (Publico)
+       h2 · numerali <ol> = National (alt)
+       drop letter = Manuka
+     I margini globali sono già azzerati dal reset (* {margin:0}):
+     qui si aggiunge solo il ritmo, top-only.
+     Modulo auto-contenuto: tutto il rich-text sta in questo file.
+     ============================================================ */
+
+  /* Base = ruolo body serif (stessi token di .text-body). */
+  .rich-text {
+    font-family: var(--font-body);
+    font-size:   var(--body);
+    line-height: 1.4;
+    font-weight: var(--weight-book);
+  }
+
+  /* ── Ritmo verticale — Pattern A (solo margin-block-start):
+     robusto a contesti block/flex/grid, niente collasso. ── */
+  .rich-text > * + *  { margin-block-start: var(--space-12); }
+  .rich-text > * + h2 { margin-block-start: var(--space-44); }   /* LGC usa 48 */
+  .rich-text > * + h3 { margin-block-start: var(--space-24); }
+
+  /* ── h2 = maiuscoletto National (alt) — identico look a .text-caps:
+     taglia corretta ×--national-scale, interlinea inversa → box-riga = body. ── */
+  .rich-text h2 {
+    font-family:       var(--font-sans);
+    font-size:         calc(var(--body) * var(--national-scale));
+    line-height:       calc(1.4 / var(--national-scale));
+    font-weight:       var(--weight-semibold);
+    font-variant-caps: all-small-caps;
+    letter-spacing:    0.02em;
+  }
+
+  /* ── h3 = serif (default), semibold, taglia body. ── */
+  .rich-text h3 {
+    font-family: var(--font-body);
+    font-size:   var(--body);
+    line-height: 1.4;
+    font-weight: var(--weight-semibold);
+  }
+
+  /* ── Liste — il reset azzera list-style: qui lo ripristino. ── */
+  .rich-text ul { list-style: disc; }
+  .rich-text ol { list-style: decimal; }
+  .rich-text ul,
+  .rich-text ol { padding-inline-start: var(--space-24); }
+  .rich-text li + li    { margin-block-start: var(--space-12); }
+  .rich-text li > ul,
+  .rich-text li > ol    { margin-block-start: var(--space-12); }
+  .rich-text li > p + p { margin-block-start: var(--space-12); }
+
+  /* ── Numerali <ol> = National (alt), semibold, cifre lining+tabular
+     così i multi-cifra si allineano. Taglia: eredita dal body. ── */
+  .rich-text ol > li::marker {
+    font-family:          var(--font-sans);
+    font-weight:          var(--weight-semibold);
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+
+  /* ── Link — underline con "linktrap": skip-ink salta i discendenti
+     (buchi attorno a g/p/q…). Colore della riga = currentColor attenuato
+     (40% → 60% in hover): niente colore custom, testo a piena leggibilità. ── */
+  .rich-text a {
+    text-decoration-line:     underline;
+    text-decoration-skip-ink: auto;
+    text-decoration-color:    color-mix(in srgb, currentColor 40%, transparent);
+    transition:               text-decoration-color 120ms ease;
+  }
+  .rich-text a:hover {
+    text-decoration-color:    color-mix(in srgb, currentColor 60%, transparent);
+  }
+
+  /* ── Drop letter (Manuka), 3 righe ──
+     Path CSS initial-letter: il browser dimensiona dalla metrica del
+     font (cap-height = 3 righe) e allinea la baseline alla riga 3 →
+     robusto al body fluido. Chrome/Safari (come le frecce
+     ::scroll-button del progetto); su Firefox la prima lettera resta
+     normale — nessun fallback calibrato, per tenerlo semplice. ── */
+  .rich-text p.has-drop-cap::first-letter {
+    font-family:            var(--font-condensed);
+    font-weight:            400;
+    margin-inline-end:      var(--space-12);
+    -webkit-initial-letter: 3;
+            initial-letter: 3;
+  }
+}

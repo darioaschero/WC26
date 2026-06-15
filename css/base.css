@@ -35,11 +35,18 @@
   body {
     background: var(--bg);
     color: var(--fg);
-    /* PLACEHOLDER: serif editoriale da definire */
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: var(--font-body);   /* Publico Text — vedi tokens.css */
     font-size: var(--body);
     line-height: 1.4;
+    /* cifre old-style proporzionali ovunque (testo corrente);
+       modificatore .tabular-nums per dati/colonne (lining + tabular) */
+    font-variant-numeric: oldstyle-nums proportional-nums;
   }
+
+  /* Niente peso 700 nella licenza: il "bold" È il Semibold (600), per Publico
+     e National. Esplicito, così non dipende dal fallback 700→600 del browser.
+     Il corsivo lo dà il default UA su <em>/<i>, ora con le facce reali. */
+  b, strong { font-weight: var(--weight-semibold); }
 
   /* testo accessibile solo per screen reader */
   .sr-only {
