@@ -1,0 +1,6 @@
+@layer utilities {
+  /* ── Cifre allineate per dati / colonne / statistiche:
+     lining (altezza maiuscola) + tabular (larghezza fissa).
+     Modificatore del default old-style proporzionale (su <body>). ── */
+  .tabular-nums { font-variant-numeric: lining-nums tabular-nums; }
+}

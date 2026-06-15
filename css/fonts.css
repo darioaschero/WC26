@@ -1,0 +1,57 @@
+/* ============================================================
+   @font-face — font self-hosted, woff2 dove disponibile.
+   Licenza web LGC (National/Publico/Sanomat); Manuka allegato.
+   I @font-face restano FUORI dai @layer: il layering non li riguarda.
+   ============================================================ */
+
+/* ── Publico Text — body serif editoriale (Roman + Semibold) ── */
+@font-face {
+  font-family: "Publico Text";
+  src: url("../fonts/PublicoText-Roman-Web.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Publico Text";
+  src: url("../fonts/PublicoText-Semibold-Web.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Sanomat — display serif (solo Semibold in licenza) ── */
+@font-face {
+  font-family: "Sanomat";
+  src: url("../fonts/Sanomat-Semibold-Web.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── National — sans (testi UI/label + maiuscoletto) ──
+   Book/Semibold sono .woff: i woff2 non sono ancora forniti dal sistema LGC. */
+@font-face {
+  font-family: "National";
+  src: url("../fonts/NationalWeb-Book.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "National";
+  src: url("../fonts/NationalWeb-Semibold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Manuka Condensed — hero condensato, uppercase ──
+   Faccia singola: peso dichiarato 400, rende il disegno nativo del file. */
+@font-face {
+  font-family: "Manuka Condensed";
+  src: url("../fonts/Manuka-Condensed.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
