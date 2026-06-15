@@ -17,6 +17,16 @@
   }
   .page > * { padding-inline: var(--pad); }   /* header, main, footer → contenuto 1308 */
 
+  /* 1024 → griglia a 32 col: blocca la max PRIMA del passaggio a 37 (1184).
+     1102 (inner) + 24 (pad: 12 × 2) = 1126, in rem (onora il font-size radice). */
+  @media (min-width: 64em) {
+    .page { max-inline-size: calc(68.875rem + 2 * var(--pad)); }   /* 68.875rem = 1102 */
+  }
+  /* 1184 → 37 col: la max torna dipendente dal body (74 × body). */
+  @media (min-width: 74em) {
+    .page { max-inline-size: calc(var(--body) * var(--container)); }
+  }
+
   /* Sotto la cornice: un bordo sopra e uno sotto separano header e footer
      dal main (full-viewport, come i separatori di sezione). */
   main::before,
