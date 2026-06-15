@@ -31,7 +31,7 @@
           <h1 id="dossier-title">
             <span class="sr-only">FIFA World Cup 2026</span>
             <span class="wordmark" aria-hidden="true">
-              <!-- pezzi SVG <text> in flex: [FIFA WORLD] · [CUP+cerchio+2026] · [2026] -->
+              <img src="img/visual.svg" alt="" width="697" height="1110">
             </span>
           </h1>
           <!-- intro editoriale — .rich-text: primo paragrafo con drop-cap Manuka -->
@@ -43,20 +43,35 @@
           </div>
         </div>
 
-        <aside class="split__secondary" aria-labelledby="latest-title">
-          <h2 id="latest-title">Derniers</h2>
+        <aside class="split__secondary derniers" aria-labelledby="latest-title">
+          <h2 id="latest-title" class="section-title derniers__title"><span class="text-caps">Derniers</span></h2>
 
-          <article class="teaser">
-            <h3><a href="#">Les États-Unis peuvent-ils vraiment aller si loin dans la Coupe du monde 2026 ?</a></h3>
-            <p>La Coupe du monde débute ce soir pour les États-Unis, avec des attentes plutôt élevées.</p>
-            <time datetime="2026-06-14T10:00+02:00">il y a 2 heures</time>
+          <article class="preview preview--feature">
+            <span class="preview__media" aria-hidden="true"></span>
+            <h3 class="preview__title text-display-xs"><a href="#">Gianni Infantino : chambellan néo-royaliste du foot mondial</a></h3>
+            <p class="preview__subtitle text-body">Quel est le point commun entre MBS, Poutine, Trump, Platini et Kylian Mbappé ?</p>
+            <p class="preview__meta text-sans-md">Études par <strong>Dario Saltari</strong></p>
           </article>
 
-          <article class="teaser">
-            <h3><a href="#">Israël a jeté le discrédit sur le football, selon la Fifa</a></h3>
-            <p>La Fédération israélienne de football est condamnée par la commission de discipline de la Fifa, mais n'est pas exclue et n'écope que de 190 000 $.</p>
-            <time datetime="2026-06-14T09:00+02:00">il y a 3 heures</time>
-          </article>
+          <div class="derniers__breves">
+            <article class="preview preview--breve">
+              <h3 class="preview__title text-display-xs"><a href="#">Les États-Unis peuvent-ils vraiment aller si loin dans la Coupe du monde 2026 ?</a></h3>
+              <p class="preview__subtitle text-body">La Coupe du monde débute ce soir pour les États-Unis, avec des attentes plutôt élevées.</p>
+              <time class="preview__meta text-sans-md" datetime="2026-06-14T10:00+02:00">il y a 2 heures</time>
+            </article>
+
+            <article class="preview preview--breve">
+              <h3 class="preview__title text-display-xs"><a href="#">Israël a jeté le discrédit sur le football, selon la Fifa</a></h3>
+              <p class="preview__subtitle text-body">La Fédération israélienne de football est condamnée par la commission de discipline de la Fifa, mais n'est pas exclue et n'écope que de 190 000 $.</p>
+              <time class="preview__meta text-sans-md" datetime="2026-06-14T09:00+02:00">il y a 3 heures</time>
+            </article>
+
+            <article class="preview preview--breve">
+              <h3 class="preview__title text-display-xs"><a href="#">La Coupe du monde 2026 sera-t-elle la plus controversée de l'histoire ?</a></h3>
+              <p class="preview__subtitle text-body">En bref : oui. Mais, comme le montre notre premier bulletin quotidien, c'est un peu plus compliqué.</p>
+              <time class="preview__meta text-sans-md" datetime="2026-06-14T07:00+02:00">il y a 4 heures</time>
+            </article>
+          </div>
 
           <a class="more" href="#">Voir tout</a>
         </aside>
@@ -169,7 +184,34 @@
       <hr class="section-rule">
 
       <section class="section" aria-labelledby="news-title">
-        <h2 id="news-title">Derniers dans la Coupe du monde</h2>
+        <h2 id="news-title" class="section-title"><span class="text-caps">Derniers</span> dans la Coupe du monde</h2>
+
+        <article class="preview preview--list">
+          <span class="preview__media" aria-hidden="true"></span>
+          <div class="preview__text">
+            <h3 class="preview__title text-display-xs"><a href="#">La Coupe du monde 2026 sera-t-elle la plus controversée de l'histoire ?</a></h3>
+            <p class="preview__subtitle text-body">En bref : oui. Mais, comme le montre notre premier bulletin quotidien, c'est un peu plus compliqué.</p>
+            <time class="preview__meta text-sans-md" datetime="2026-06-15T08:00+02:00">il y a 2 heures</time>
+          </div>
+        </article>
+
+        <article class="preview preview--list">
+          <span class="preview__media" aria-hidden="true"></span>
+          <div class="preview__text">
+            <h3 class="preview__title text-display-xs"><a href="#">Gianni Infantino : chambellan néo-royaliste du foot mondial</a></h3>
+            <p class="preview__subtitle text-body">Quel est le point commun entre MBS, Poutine, Trump, Platini et Kylian Mbappé ?</p>
+            <p class="preview__meta text-sans-md">Entretien avec <strong>Laure Delcour</strong></p>
+          </div>
+        </article>
+
+        <article class="preview preview--list">
+          <span class="preview__media" aria-hidden="true"></span>
+          <div class="preview__text">
+            <h3 class="preview__title text-display-xs"><a href="#">Les États-Unis peuvent-ils vraiment aller si loin dans la Coupe du monde 2026 ?</a></h3>
+            <p class="preview__subtitle text-body">La Coupe du monde débute ce soir pour les États-Unis, avec des attentes plutôt élevées.</p>
+            <time class="preview__meta text-sans-md" datetime="2026-06-15T07:00+02:00">il y a 3 heures</time>
+          </div>
+        </article>
       </section>
 
     </main>

@@ -1,6 +1,14 @@
 @layer type {
   :root {
     --body: 1.0625rem;   /* 17px — base, non scala sotto 1184 */
+
+    /* Ramp display — sorgente unica delle taglie (× body). I ruoli .text-display-*
+       le leggono; i componenti le RICOMPONGONO in @container (es. titolo
+       anteprima xs→sm) puntando alla stessa taglia-token → niente calc riscritto. */
+    --display-xs: calc(var(--body) * 20 / 17);   /* 20 @body17 */
+    --display-sm: calc(var(--body) * 29 / 17);   /* 29 @body17 */
+    --display-md: calc(var(--body) * 48 / 17);   /* 48 @body17 */
+    --display-lg: calc(var(--body) * 80 / 17);   /* 80 @body17 */
   }
 
   /* Rampa fluida del bodytext. Endpoint in rem → onora la preferenza font
@@ -17,7 +25,6 @@
 
   /* Titoli = multipli del bodytext (em nel contesto a --body).
      Multipli PLACEHOLDER: da fissare col disegno della scala tipografica. */
-  .lede { font-size: 1em;    line-height: 1.45; }   /* = body */
   h2    { font-size: 1.6em;  line-height: 1.15; }
   h3    { font-size: 1.15em; line-height: 1.2;  }
 
@@ -29,22 +36,22 @@
      in carico al richtext, ancora da migrare.
      ============================================================ */
 
-  /* ── Display Sanomat (fluidi) ── */
+  /* ── Display Sanomat (fluidi) — taglie dalla ramp (--display-*) ── */
   .text-display-xs {
     font-family: var(--font-display);
-    font-size:   calc(var(--body) * 20 / 17);   /* 20 @body17 */
+    font-size:   var(--display-xs);
     line-height: 1.2;
     font-weight: var(--weight-semibold);
   }
   .text-display-sm {
     font-family: var(--font-display);
-    font-size:   calc(var(--body) * 29 / 17);   /* 29 @body17 */
+    font-size:   var(--display-sm);
     line-height: 1.1;
     font-weight: var(--weight-semibold);
   }
   .text-display-md {
     font-family: var(--font-display);
-    font-size:   calc(var(--body) * 48 / 17);   /* 48 @body17 */
+    font-size:   var(--display-md);
     line-height: 1.1;
     font-weight: var(--weight-semibold);
   }
@@ -52,7 +59,7 @@
   /* ── Hero condensato Manuka (fluido, uppercase) ── */
   .text-display-lg {
     font-family:    var(--font-condensed);
-    font-size:      calc(var(--body) * 80 / 17);   /* 80 @body17 */
+    font-size:      var(--display-lg);
     line-height:    0.85;
     font-weight:    400;
     text-transform: uppercase;
@@ -80,6 +87,7 @@
     font-size:         calc(var(--body) * var(--national-scale));   /* National corretto a taglia-body */
     line-height:       calc(1.4 / var(--national-scale));           /* inverso → box-riga = body */
     font-weight:       var(--weight-semibold);
+    font-style:        normal;                                      /* maiuscoletto sempre dritto (anche dentro contesti corsivi) */
     font-variant-caps: all-small-caps;
     letter-spacing:    0.02em;
   }
