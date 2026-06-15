@@ -43,8 +43,6 @@
      outline = sul bordo a 1332, non tocca il box (contenuto resta 1308). */
   @media (min-width: 86.25em) {
     main { outline: var(--rule) solid var(--line); }
-    /* da quando c'è la cornice, header e footer vanno a filo del bordo */
-    .masthead, .site-footer { padding-inline: 0; }
     /* la cornice sostituisce i bordi sopra/sotto del main */
     main::before, main::after { display: none; }
   }
@@ -89,21 +87,66 @@
   .svg-dot { fill: var(--line); }
 
   /* ── masthead / footer (dentro .page, FUORI dalla cornice) ── */
-  .masthead {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-16);
-    padding-block: var(--space-16);
-  }
-  .breadcrumb ol { display: flex; gap: var(--space-08); }
+  /* padding-inline: 24 dal bordo viewport finché NON c'è cornice; a filo della
+     cornice (= 0, come main) da 1380. Override del ramp --pad di `.page > *`
+     (24/44/12) → header e footer restano a 24 costante sotto i 1380. */
+  .masthead, .site-footer { padding-inline: var(--space-24); }
+  @media (min-width: 86.25em) { .masthead, .site-footer { padding-inline: 0; } }
 
+  /* grid 1fr·auto·1fr → logo SEMPRE centrato a prescindere dalle larghezze
+     dei lati (breadcrumb sx, CTA dx). Header alto 72 → 96 da tablet. */
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: var(--space-16);
+    block-size: var(--space-72);
+  }
+  .masthead .brand { justify-self: center; }   /* logo al centro della colonna auto */
+  .masthead__cta   { justify-self: end; }       /* CTA a filo del bordo destro */
+  /* logo: 40 (2.5rem) → 60 (3.75rem) da tablet; larghezza dal ratio del viewBox */
+  .brand svg { block-size: 2.5rem; inline-size: auto; }
+  @media (min-width: 45em) {
+    .masthead  { block-size: var(--space-96); }
+    .brand svg { block-size: 3.75rem; }
+  }
+
+  /* breadcrumb + CTA: National md (utility .text-sans-md nel markup) ma semibold,
+     cifre proporzionali lining (no maiuscolo). */
+  .breadcrumb,
+  .masthead__cta {
+    font-weight: var(--weight-semibold);
+    font-variant-numeric: proportional-nums lining-nums;
+  }
+  .breadcrumb ol { display: flex; align-items: center; gap: var(--space-08); }
+  .breadcrumb li + li::before { content: ">"; margin-inline-end: var(--space-08); }   /* separatore "Une > WC26" */
+
+  /* footer: National md regular (utility nel markup). Mobile = colonna centrata,
+     blocco1 · 24 · blocco2. Da tablet = riga, blocco1 sx / blocco2 dx. py 24. */
   .site-footer {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-16);
-    justify-content: space-between;
-    padding-block: var(--space-72) var(--space-32);
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-24);
+    padding-block: var(--space-24);
   }
-  .site-footer nav { display: flex; gap: var(--space-24); }
+  .site-footer__legal a { display: block; }
+
+  /* Link header + footer — underline all'hover, sottile (1px, currentColor
+     attenuato) con "linktrap": skip-ink salta i discendenti (come .rich-text a). */
+  .breadcrumb a:hover,
+  .masthead__cta:hover,
+  .site-footer__legal a:hover {
+    text-decoration-line:      underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color:     color-mix(in srgb, currentColor 40%, transparent);
+    text-decoration-skip-ink:  auto;
+    text-underline-offset:     0.15em;
+  }
+
+  @media (min-width: 45em) {
+    .site-footer { flex-direction: row; justify-content: space-between; align-items: start; text-align: start; }
+    .site-footer__legal { text-align: end; }   /* blocco2 a dx, allineato a dx */
+  }
 }

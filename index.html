@@ -12,14 +12,23 @@
   <div class="page">
 
     <header class="masthead">
-      <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <nav class="breadcrumb text-sans-md" aria-label="Fil d'Ariane">
         <ol>
           <li><a href="/">Une</a></li>
           <li aria-current="page">WC26</li>
         </ol>
       </nav>
-      <a class="brand" href="/" aria-label="Le Grand Continent — accueil">GC</a>
-      <a class="masthead__cta" href="/abonnement">S'abonner</a>
+      <a class="brand" href="/" aria-label="Le Grand Continent — accueil">
+        <svg width="82" height="60" viewBox="0 0 82 60" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+          <path d="M63.1819 6.67805C62.989 6.67805 62.8925 6.67805 62.6996 6.67805C57.8761 6.67805 54.9819 14.1297 54.9819 24.291C54.9819 38.1297 59.9984 46.9361 68.0055 46.9361C72.829 46.9361 76.5914 43.9361 78.7137 37.8393L79.0996 37.9361C77.9419 50.7103 70.8996 56.6135 63.2784 56.6135C53.9208 56.6135 46.2031 46.8393 46.2031 31.0651C46.2031 17.8071 53.3419 6.96837 62.6031 4.35547"/>
+          <path d="M72.6422 22.1616L79.1058 6.00032C79.1058 6.00032 72.5458 2.71 64.8281 3.77452"/>
+          <path d="M14.2742 23.7115C14.9494 12.5825 17.4577 6.00185 22.6671 6.00185C28.4553 6.00185 31.4459 12.389 34.1471 19.7438H34.4365L38.7777 5.13089C33.9542 4.06637 28.9377 3.67927 24.9824 3.77605C12.8271 3.77605 5.01298 11.7115 2.89062 23.7115H14.2742Z"/>
+          <path d="M42.7316 23.9045V23.7109H24.1128V23.9045C26.7175 25.0658 28.0681 27.5819 28.0681 30.8722V47.8077C28.0681 51.6787 26.2351 54.0013 23.2445 54.0013C18.7104 54.0013 16.0092 50.0335 14.8516 41.5174H4.04688C7.61629 51.6787 16.2022 56.2271 24.3057 56.2271C31.2516 56.2271 37.9081 55.4529 42.1528 54.8722V54.6787C40.0304 53.6142 38.8728 51.0013 38.8728 47.7109V30.8722C38.8728 27.5819 40.2233 25.0658 42.7316 23.9045Z"/>
+          <path d="M5.49533 25.8398V36.5818H7.9071V38.7108H2.89062V25.8398H5.49533Z"/>
+          <path d="M14.0817 38.7108H8.96875V25.8398H14.0817V27.9689H11.477V31.1624H13.5993V33.1947H11.477V36.5818H14.0817V38.7108V38.7108Z"/>
+        </svg>
+      </a>
+      <a class="masthead__cta text-sans-md" href="/abonnement">S'abonner</a>
     </header>
 
     <main id="content">
@@ -92,7 +101,7 @@
             </article>
           </div>
 
-          <a class="more" href="#">Voir tout</a>
+          <a class="more button button--secondary text-sans-md" href="#">Voir tout</a>
         </aside>
 
         <!-- regola verticale: .split::before, nessun nodo -->
@@ -174,7 +183,7 @@
           <div class="field-cta">
             <h2 id="sim-title" class="field-cta__title text-display-sm">Qui gagnera la<br>Coupe du monde&nbsp;?</h2>
             <p class="field-cta__sub text-body">Le simulateur du Grand Continent</p>
-            <a class="button text-sans-md" href="#">Coup d’envoi</a>
+            <a class="button button--primary text-sans-md" href="#">Coup d’envoi</a>
           </div>
           <span class="field-line__sep" aria-hidden="true"></span>
         </div>
@@ -265,9 +274,12 @@
 
     </main>
 
-    <footer class="site-footer">
-      <p>Publié par le Groupe d'Études Géopolitiques</p>
-      <nav aria-label="Légal">
+    <footer class="site-footer text-sans-md">
+      <div class="site-footer__about" lang="en">
+        <p>Published by Groupe d'Études Géopolitiques</p>
+        <p>Copyright © 2019 GEG. All Rights Reserved</p>
+      </div>
+      <nav class="site-footer__legal" aria-label="Légal">
         <a href="#">Informations légales</a>
         <a href="#">Conditions générales de vente</a>
       </nav>

@@ -345,18 +345,10 @@
     border-block-start:  var(--hairline) dotted var(--line);
   }
 
-  /* «Voir tout» = pill (colore via cascade — pass contrasto a parte) */
-  .more {
-    align-self:     center;
-    display:        inline-flex;
-    align-items:    center;
-    gap:            var(--space-08);
-    padding-block:  var(--space-12);
-    padding-inline: var(--space-24);
-    border:         var(--hairline) solid var(--line);
-    border-radius:  100vmax;
-  }
-  .more::after { content: "⌄" / ""; line-height: 1; }   /* glifo decorativo: nome accessibile vuoto (come .cards-more) */
+  /* «Voir tout» = secondary button: la FORMA arriva da .button.button--secondary
+     nel markup. .more tiene solo il PIAZZAMENTO nel rail (centratura mobile +
+     grid/order nei @media qui sotto). */
+  .more { align-self: center; }
 
   @media (min-width: 45em) {              /* tablet: 552 in 2 colonne, gutter 48, filetto verticale */
     .derniers {
@@ -442,14 +434,17 @@
   .field-cta__sub    { margin-block-start: var(--space-04); }   /* 4 dopo il titolo */
   .field-cta .button { margin-block-start: var(--space-16); }   /* 16 dopo il sub */
 
-  /* — button primary (provv.: nero su bianco, h44, px24) — */
+  /* — bottoni: base (forma condivisa) + varianti colore. h44, px24, radius 8.
+       primary   = nero su bianco (provv.);
+       secondary = stessa forma, bg = currentColor 10% (testo = currentColor). — */
   .button {
     display: inline-flex; align-items: center; justify-content: center;
     block-size: 44px; padding-inline: var(--space-24);
-    background: #000; color: #fff;
     font-weight: var(--weight-semibold);
     border-radius: 8px;
   }
+  .button--primary   { background: #000; color: #fff; }
+  .button--secondary { background: color-mix(in srgb, currentColor 10%, transparent); }
 
   /* ≥1024: metà NATURALI ai lati (rigore verticale), centro fluido */
   @media (min-width: 64em) {

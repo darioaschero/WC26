@@ -53,9 +53,12 @@
     --fg: #ffffff;
     --line: #ffffff;   /* colore dei filetti (tutti) */
     /* Spessori filetti — due pesi:
-       STRUTTURALE (cornice, regole di sezione/split, stroke SVG campo+wordmark) = fluido × body;
+       STRUTTURALE (cornice, regole di sezione/split, stroke SVG campo+wordmark)
+         = 2px netto su mobile, formula fluida × body da tablet (≥45em);
        ARTICOLO (separatori dotted tra preview, pill «Voir tout») = 1px fisso. */
-    --rule:     calc(var(--body) * 0.175);   /* ≈ 3px @17 → 3,5px @20 */
+    --rule:     2px;   /* mobile: 2px netto (niente sub-pixel del fluido a body 17) */
     --hairline: 1px;
   }
+  /* da tablet lo spessore strutturale passa alla formula fluida (≈3px @17 → 3,5px @20) */
+  @media (min-width: 45em) { :root { --rule: calc(var(--body) * 0.175); } }
 }
