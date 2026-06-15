@@ -51,7 +51,11 @@
     /* ── Colori (PLACEHOLDER — da campionare dal mock) ── */
     --bg: #16a34a;     /* verde campo */
     --fg: #ffffff;
-    --line: #ffffff;   /* colore dei filetti: separatori, regola, cornice */
-    --hairline: 1px;   /* spessore dei filetti */
+    --line: #ffffff;   /* colore dei filetti (tutti) */
+    /* Spessori filetti — due pesi:
+       STRUTTURALE (cornice, regole di sezione/split, stroke SVG campo+wordmark) = fluido × body;
+       ARTICOLO (separatori dotted tra preview, pill «Voir tout») = 1px fisso. */
+    --rule:     calc(var(--body) * 0.175);   /* ≈ 3px @17 → 3,5px @20 */
+    --hairline: 1px;
   }
 }

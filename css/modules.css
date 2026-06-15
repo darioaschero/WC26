@@ -27,7 +27,7 @@
     grid-column: 1 / -1;
     inline-size: 100vw;
     margin-inline: calc(50% - 50vw);
-    block-size: var(--hairline);
+    block-size: var(--rule);
     background: var(--line);
   }
 
@@ -42,7 +42,7 @@
     .split::before {
       grid-column: var(--col-rule);
       justify-self: center;
-      inline-size: var(--hairline);
+      inline-size: var(--rule);
       margin-inline: 0;
       block-size: auto;
       margin-block: calc(-1 * var(--section-pad-y));   /* scavalca il padding-block → tocca i bordi */
@@ -59,7 +59,12 @@
 
   /* ╔═ .wordmark ═ visual hero (SVG) nel .split__primary, sopra l'intro ══╗ */
   .wordmark     { display: block; }
-  .wordmark img { display: block; inline-size: 100%; block-size: auto; }
+  .wordmark svg { display: block; inline-size: 100%; block-size: auto; overflow: visible; }   /* stroke a filo del viewBox (cerchio) non croppata */
+  /* Lettering <text> del wordmark: nascosto finché Manuka Condensed non è
+     caricato (classe su <html> da JS) → mai un flash in serif di fallback.
+     È decorativo (aria-hidden) e c'è la .sr-only, quindi nascondere non costa. */
+  .wordmark text                 { visibility: hidden; }
+  .fonts-manuka .wordmark text   { visibility: visible; }
   .split__primary > .rich-text { margin-block-start: var(--space-32); }
 
   /* ╔═ .section-title ═ titolo di sezione generico (riusabile) ═══════════╗
@@ -385,5 +390,93 @@
       padding-block-start: var(--space-32);
       border-block-start:  var(--hairline) dotted var(--line);
     }
+  }
+
+  /* ╔═ .field-section ═ «simulateur» ════════════════════════════════════════
+     [ porta (½ campo) · LINEA DI METÀ CAMPO (sep · blocco CTA · sep) · porta ]
+       <1024 : flex column — porte sopra/sotto, linea ORIZZONTALE al centro.
+       ≥1024 : flex row    — porte sx/dx, linea VERTICALE al centro.
+     I separatori (.field-line__sep, flex:1) = linea a tutta larghezza/altezza,
+     AL VIVO. Il 144 sopra/sotto è SOLO delle porte (margin), non della linea. ╚═╝ */
+  .field-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-block-size: 100svh;          /* mobile/tablet: a tutta altezza (svh) */
+    padding-block: 0;                /* azzera il padding di .section: linea e porte a filo */
+  }
+
+  /* — metà campo: banner ruotato (SVG portrait nel box trasposto) — */
+  .field-half {
+    inline-size: min(100%, 552px);
+    aspect-ratio: 2 / 1;
+    container-type: size;
+    position: relative;
+    flex: none;
+  }
+  .field-half > svg {
+    position: absolute; inset-block-start: 50%; inset-inline-start: 50%;
+    inline-size: 100cqb; block-size: 100cqi;   /* trasposte → riempiono il banner */
+    overflow: visible;                          /* stroke a filo non croppata */
+  }
+  .field-half--a > svg { transform: translate(-50%, -50%) rotate(90deg); }    /* rigore sopra */
+  .field-half--b > svg { transform: translate(-50%, -50%) rotate(-90deg); }   /* rigore sotto */
+
+  /* — linea di metà campo: separatore · blocco CTA · separatore — */
+  .field-line {
+    display: flex; align-items: center;
+    gap: var(--space-16);            /* stacco linea ↔ blocco (provv.) */
+    inline-size: calc(100% + 2 * var(--pad));   /* <1024: AL VIVO (oltre il padding pagina), centrata da align-items */
+  }
+  .field-line__sep { flex: 1; block-size: var(--rule); background: var(--line); }   /* riempie lo spazio attorno al blocco */
+
+  /* — blocco CTA (elemento centrale della linea) — */
+  .field-cta {
+    flex: 0 1 auto; min-inline-size: 0;   /* può restringersi per stare nella linea (no overflow) */
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    padding-block-end: var(--space-12);
+  }
+  .field-cta__title  { max-inline-size: 18ch; }   /* taglia base = .text-display-sm (utility nel markup) */
+  @media (min-width: 45em) { .field-cta__title { font-size: var(--display-md); } }   /* sm → md da tablet */
+  .field-cta__sub    { margin-block-start: var(--space-04); }   /* 4 dopo il titolo */
+  .field-cta .button { margin-block-start: var(--space-16); }   /* 16 dopo il sub */
+
+  /* — button primary (provv.: nero su bianco, h44, px24) — */
+  .button {
+    display: inline-flex; align-items: center; justify-content: center;
+    block-size: 44px; padding-inline: var(--space-24);
+    background: #000; color: #fff;
+    font-weight: var(--weight-semibold);
+    border-radius: 8px;
+  }
+
+  /* ≥1024: metà NATURALI ai lati (rigore verticale), centro fluido */
+  @media (min-width: 64em) {
+    .field-section {
+      flex-direction: row; align-items: center; min-block-size: 0;
+      inline-size: 100vw; margin-inline: calc(50% - 50vw);   /* porte a filo del bordo schermo */
+    }
+    .field-half {
+      inline-size: clamp(12rem, 22vw, 22rem);   /* ~9 col, provv. */
+      aspect-ratio: 1 / 2;
+      container-type: normal;
+      margin-block: var(--space-144);            /* 144 sopra/sotto: SOLO le porte */
+    }
+    .field-half > svg {
+      position: static;
+      inline-size: 100%; block-size: 100%;
+      transform: none;
+    }
+    .field-half--b { transform: scaleX(-1); }    /* specchio dx */
+    .field-line {
+      align-self: stretch;                       /* tutta altezza */
+      flex-direction: column;
+      inline-size: auto;                         /* reset full-bleed mobile */
+    }
+    .field-line__sep { inline-size: var(--rule); block-size: auto; }
+  }
+  @media (min-width: 86.25em) {
+    .field-section { inline-size: auto; margin-inline: calc(-1 * var(--pad)); }   /* … a filo della cornice */
   }
 }
