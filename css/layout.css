@@ -33,7 +33,7 @@
   main::after {
     content: "";
     display: block;
-    block-size: var(--hairline);
+    block-size: var(--rule);
     background: var(--line);
     inline-size: 100vw;
     margin-inline: calc(50% - 50vw);
@@ -42,7 +42,7 @@
   /* CORNICE — solo su <main>, da 1380. header e footer restano FUORI.
      outline = sul bordo a 1332, non tocca il box (contenuto resta 1308). */
   @media (min-width: 86.25em) {
-    main { outline: var(--hairline) solid var(--line); }
+    main { outline: var(--rule) solid var(--line); }
     /* da quando c'è la cornice, header e footer vanno a filo del bordo */
     .masthead, .site-footer { padding-inline: 0; }
     /* la cornice sostituisce i bordi sopra/sotto del main */
@@ -66,13 +66,23 @@
      ≥ 1380: raggiungono la cornice scavalcando il padding (margine negativo). */
   .section-rule {
     border: 0;
-    block-size: var(--hairline);
+    block-size: var(--rule);
     background: var(--line);
     inline-size: 100vw;
     margin-inline: calc(50% - 50vw);
   }
   @media (min-width: 86.25em) {
     .section-rule { inline-size: auto; margin-inline: calc(-1 * var(--pad)); }
+  }
+
+  /* Filetto disegnato in SVG (cerchio del wordmark; a breve le linee del campo):
+     stesso sistema dei filetti strutturali ma su stroke. non-scaling-stroke →
+     spessore in px-device costanti (= cornice/regole), non scalato dal viewBox. */
+  .svg-rule {
+    fill: none;   /* solo stroke: batte `svg { fill: currentColor }` (base.css) che riempirebbe il tracciato */
+    stroke: var(--line);
+    stroke-width: var(--rule);
+    vector-effect: non-scaling-stroke;
   }
 
   /* ── masthead / footer (dentro .page, FUORI dalla cornice) ── */
