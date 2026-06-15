@@ -43,6 +43,11 @@
     font-variant-numeric: oldstyle-nums proportional-nums;
   }
 
+  /* Niente peso 700 nella licenza: il "bold" È il Semibold (600), per Publico
+     e National. Esplicito, così non dipende dal fallback 700→600 del browser.
+     Il corsivo lo dà il default UA su <em>/<i>, ora con le facce reali. */
+  b, strong { font-weight: var(--weight-semibold); }
+
   /* testo accessibile solo per screen reader */
   .sr-only {
     position: absolute;

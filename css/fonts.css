@@ -4,7 +4,7 @@
    I @font-face restano FUORI dai @layer: il layering non li riguarda.
    ============================================================ */
 
-/* ── Publico Text — body serif editoriale (Roman + Semibold) ── */
+/* ── Publico Text — body serif editoriale (Roman/Semibold + corsivi) ── */
 @font-face {
   font-family: "Publico Text";
   src: url("../fonts/PublicoText-Roman-Web.woff2") format("woff2");
@@ -19,6 +19,20 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: "Publico Text";
+  src: url("../fonts/PublicoText-Italic-Web.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Publico Text";
+  src: url("../fonts/PublicoText-SemiboldItalic-Web.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
 
 /* ── Sanomat — display serif (solo Semibold in licenza) ── */
 @font-face {
@@ -30,7 +44,8 @@
 }
 
 /* ── National — sans (testi UI/label + maiuscoletto) ──
-   Book/Semibold sono .woff: i woff2 non sono ancora forniti dal sistema LGC. */
+   Book/Semibold sono .woff: i woff2 non sono ancora forniti dal sistema LGC.
+   Corsivo: solo Book (400); manca il SemiboldItalic. */
 @font-face {
   font-family: "National";
   src: url("../fonts/NationalWeb-Book.woff") format("woff");
@@ -43,6 +58,13 @@
   src: url("../fonts/NationalWeb-Semibold.woff") format("woff");
   font-weight: 600;
   font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "National";
+  src: url("../fonts/NationalWeb-BookItalic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
   font-display: swap;
 }
 
