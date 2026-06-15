@@ -351,7 +351,7 @@
     border:         var(--hairline) solid var(--line);
     border-radius:  100vmax;
   }
-  .more::after { content: "⌄"; line-height: 1; }
+  .more::after { content: "⌄" / ""; line-height: 1; }   /* glifo decorativo: nome accessibile vuoto (come .cards-more) */
 
   @media (min-width: 45em) {              /* tablet: 552 in 2 colonne, gutter 48, filetto verticale */
     .derniers {
