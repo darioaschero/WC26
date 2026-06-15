@@ -44,7 +44,7 @@
               <path d="M50.4111 1060.92L38.5055 1027.47C38.453 1027.32 38.3344 1027.2 38.1851 1027.16L30.5549 1024.75C30.3538 1024.68 30.1344 1024.75 30.0066 1024.92L16.0092 1043.29C15.9072 1043.42 15.8794 1043.6 15.9352 1043.76L22.7238 1063.08C22.7782 1063.23 22.9051 1063.35 23.0633 1063.39L44.4045 1069.25C44.6079 1069.3 44.8244 1069.22 44.9457 1069.05L50.3489 1061.37C50.4423 1061.24 50.4655 1061.07 50.4111 1060.92Z" fill="white"/>
               <path d="M43.6718 1079.57L20.3176 1074.77C19.8749 1074.68 19.5528 1075.17 19.8216 1075.54C22.5666 1079.25 28.4638 1086.3 35.0889 1091.4C41.8207 1096.59 51.9597 1100.04 57.2052 1101.4C57.6418 1101.52 57.9744 1101.03 57.7265 1100.66L43.9889 1079.78C43.9159 1079.67 43.8018 1079.6 43.6718 1079.57Z" fill="white"/>
               <path d="M528.484 673.648C621.268 673.648 696.484 598.432 696.484 505.648C696.484 412.865 621.268 337.648 528.484 337.648M528.484 673.648C435.701 673.648 360.484 598.432 360.484 505.648C360.484 412.865 435.701 337.648 528.484 337.648M528.484 673.648V337.648" class="svg-rule"/>
-              <circle cx="528.484" cy="505.648" r="12" fill="white"/>
+              <circle cx="528.484" cy="505.648" r="12" class="svg-dot"/>
               <text transform="translate(712.484 699.164) rotate(90)" fill="black" style="white-space: pre" xml:space="preserve" font-family="Manuka Condensed" font-size="444.5" font-weight="400" letter-spacing="0px"><tspan x="208.793" y="348.243">26</tspan></text>
               <text transform="translate(712.484 699.164) rotate(90)" fill="white" style="white-space: pre" xml:space="preserve" font-family="Manuka Condensed" font-size="444.5" font-weight="400" letter-spacing="0px"><tspan x="0" y="348.243">20</tspan></text>
               <text transform="translate(712.484 -5.83594) rotate(90)" fill="white" style="white-space: pre" xml:space="preserve" font-family="Manuka Condensed" font-size="444.5" font-weight="400" letter-spacing="0px"><tspan x="0" y="348.243">CUP</tspan></text>
@@ -164,7 +164,7 @@
             <path class="svg-rule" d="M252 190.477C302.215 219.525 336 273.817 336 336.001C336 398.185 302.215 452.478 252 481.526"/>
             <path class="svg-rule" d="M0 0H252V672H0"/>
             <path class="svg-rule" d="M0 112H84V560H0"/>
-            <circle cx="168" cy="336" r="12" fill="white"/>
+            <circle cx="168" cy="336" r="12" class="svg-dot"/>
           </svg>
         </div>
 
@@ -184,7 +184,7 @@
             <path class="svg-rule" d="M252 190.477C302.215 219.525 336 273.817 336 336.001C336 398.185 302.215 452.478 252 481.526"/>
             <path class="svg-rule" d="M0 0H252V672H0"/>
             <path class="svg-rule" d="M0 112H84V560H0"/>
-            <circle cx="168" cy="336" r="12" fill="white"/>
+            <circle cx="168" cy="336" r="12" class="svg-dot"/>
           </svg>
         </div>
       </section>
@@ -274,6 +274,19 @@
     </footer>
 
   </div>
+
+  <!-- Wordmark: mostra il lettering <text> solo a Manuka Condensed caricato
+       (vedi .wordmark text in modules.css). Niente fallback serif; se l'API
+       Font Loading manca o il font non carica, il lettering resta nascosto. -->
+  <script>
+    if (document.fonts && document.fonts.load) {
+      document.fonts.load("400 1em 'Manuka Condensed'").then(function () {
+        if (document.fonts.check("400 1em 'Manuka Condensed'")) {
+          document.documentElement.classList.add("fonts-manuka");
+        }
+      }).catch(function () {});
+    }
+  </script>
 
 </body>
 </html>

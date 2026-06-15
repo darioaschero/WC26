@@ -84,6 +84,9 @@
     stroke-width: var(--rule);
     vector-effect: non-scaling-stroke;
   }
+  /* Punto pieno SVG (cerchio centrale di campo e wordmark): fill tokenizzato
+     come i filetti — var() non vale negli attributi SVG, quindi via classe. */
+  .svg-dot { fill: var(--line); }
 
   /* ── masthead / footer (dentro .page, FUORI dalla cornice) ── */
   .masthead {

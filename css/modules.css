@@ -60,6 +60,11 @@
   /* ╔═ .wordmark ═ visual hero (SVG) nel .split__primary, sopra l'intro ══╗ */
   .wordmark     { display: block; }
   .wordmark svg { display: block; inline-size: 100%; block-size: auto; overflow: visible; }   /* stroke a filo del viewBox (cerchio) non croppata */
+  /* Lettering <text> del wordmark: nascosto finché Manuka Condensed non è
+     caricato (classe su <html> da JS) → mai un flash in serif di fallback.
+     È decorativo (aria-hidden) e c'è la .sr-only, quindi nascondere non costa. */
+  .wordmark text                 { visibility: hidden; }
+  .fonts-manuka .wordmark text   { visibility: visible; }
   .split__primary > .rich-text { margin-block-start: var(--space-32); }
 
   /* ╔═ .section-title ═ titolo di sezione generico (riusabile) ═══════════╗
@@ -432,7 +437,7 @@
     display: flex; flex-direction: column; align-items: center; text-align: center;
     padding-block-end: var(--space-12);
   }
-  .field-cta__title  { font-size: var(--display-sm); max-inline-size: 18ch; }
+  .field-cta__title  { max-inline-size: 18ch; }   /* taglia base = .text-display-sm (utility nel markup) */
   @media (min-width: 45em) { .field-cta__title { font-size: var(--display-md); } }   /* sm → md da tablet */
   .field-cta__sub    { margin-block-start: var(--space-04); }   /* 4 dopo il titolo */
   .field-cta .button { margin-block-start: var(--space-16); }   /* 16 dopo il sub */
