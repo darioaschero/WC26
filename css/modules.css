@@ -57,6 +57,25 @@
   }
   /* ╚════════════════════════════════════════════════════════════════════╝ */
 
+  /* ╔═ .wordmark ═ visual hero (SVG) nel .split__primary, sopra l'intro ══╗ */
+  .wordmark     { display: block; }
+  .wordmark img { display: block; inline-size: 100%; block-size: auto; }
+  .split__primary > .rich-text { margin-block-start: var(--space-32); }
+
+  /* ╔═ .section-title ═ titolo di sezione generico (riusabile) ═══════════╗
+     «LABEL maiuscoletto + coda corsivo»: l'h2 base è corsivo serif (la coda,
+     es. "dans la Coupe du monde"); l'etichetta è un `.text-caps` inline
+     (National maiuscoletto, ruolo riusato). ╚═══════════════════════════════╝ */
+  .section-title {
+    font-family: var(--font-body);
+    font-style:  italic;
+    font-weight: var(--weight-book);
+    font-size:   var(--body);
+    line-height: 1.3;
+    text-align:  center;        /* centrato su mobile/tablet … */
+  }
+  @media (min-width: 64em) { .section-title { text-align: start; } }   /* … allineato a sx da 1024 (vale per OGNI section-title) */
+
   /* ╔═ .cards ═ carosello full-bleed con snap a pagine ═══════════════════╗
      Card "terzo" = inner/3. I wrapper .slide sono OPZIONALI: servono solo
      dove una pagina raggruppa card "doppie" (1/2). Senza .slide è una fila
@@ -188,5 +207,183 @@
     /* in griglia Chromium genera le frecce lo stesso (overflow:visible non basta) → via */
     .cards-section:has(.cards-toggle:checked) .cards::scroll-button(left),
     .cards-section:has(.cards-toggle:checked) .cards::scroll-button(right) { display: none; }
+  }
+
+  /* ╔═ .preview ═ blocco-testo dell'anteprima articolo (riusabile) ═══════╗
+     Stessa struttura ovunque: titolo · sottotitolo · meta.
+     La taglia del TITOLO e il gap prima del META si RICOMPONGONO sulla
+     larghezza del blocco (container query), senza riscrivere i ruoli:
+       · titolo  → .text-display-xs (utility nel markup); oltre 28rem
+         l'override punta a --display-sm, la STESSA taglia-token del ruolo -sm;
+       · sottotitolo (.text-body) e meta (.text-sans-md) non cambiano →
+         solo utility class nel markup; qui vivono solo i gap.
+     In CSS vanilla non c'è @apply: l'unico "richiamo" di un ruolo è la sua
+     taglia-token. Cascade: l'override sta in @layer modules (dopo type),
+     vince sull'utility senza giochi di specificità. ╚═╝ */
+  .preview { container-type: inline-size; container-name: preview; position: relative; }
+
+  /* link "esteso": l'<a> del titolo copre l'intera preview → titolo, testo e
+     media tutti cliccabili con un solo link accessibile; underline currentColor
+     all'hover (l'::after fa scattare :hover su tutta l'area della preview). */
+  .preview__title a::after { content: ""; position: absolute; inset: 0; }
+  .preview__title a:hover {
+    text-decoration:           underline;
+    text-decoration-color:     color-mix(in srgb, currentColor 40%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset:     0.15em;
+    text-decoration-skip-ink:  auto;
+  }
+
+  /* gap verticali — Pattern A (margin-block-start, top-only), come il rich-text */
+  .preview__subtitle { margin-block-start: var(--space-08); }
+  .preview__meta     { display: block; margin-block-start: var(--space-08); }
+
+  @container preview (min-width: 28rem) {   /* 448px: blocco "largo" → titolo -sm, meta più staccato */
+    .preview__title { font-size: var(--display-sm); line-height: 1.1; }
+    .preview__meta  { margin-block-start: var(--space-24); }
+  }
+
+  /* ── Varianti ──
+     .preview--feature = long-form con immagine (+ byline);
+     .preview--breve   = solo testo. Il blocco-testo (sopra) è condiviso. */
+
+  /* media (segnaposto come .card__media): ratio responsive — ritratto/quadrato/ritratto */
+  .preview__media {
+    display:      block;
+    aspect-ratio: 4 / 3;                     /* mobile: 4×3 paesaggio */
+    background:   var(--fg);
+    opacity:      .18;
+  }
+  @media (min-width: 45em) { .preview__media { aspect-ratio: 1 / 1; } }   /*  720 tablet: 1×1 quadrato  */
+  @media (min-width: 64em) { .preview__media { aspect-ratio: 4 / 3; } }   /* 1024: 4×3 paesaggio        */
+
+  /* media → titolo: gap (Pattern A). Valore non da spec → 16 provvisorio */
+  .preview__media + .preview__title { margin-block-start: var(--space-16); }
+
+  /* Conteggio breves visibili: 1 (mobile) · 2 (≥720) · 3 (≥1024).
+     Le breves sono i soli figli di .derniers__breves → nth-child diretto. */
+  .derniers__breves > .preview:nth-child(n + 2) { display: none; }
+  @media (min-width: 45em) { .derniers__breves > .preview:nth-child(2) { display: block; } }
+  @media (min-width: 64em) { .derniers__breves > .preview:nth-child(3) { display: block; } }
+
+  /* ── .preview--list ── (sezione finale): img + testo orizzontali (testo in
+     `.preview__text`) sulla fine-grid.
+       mobile  : card verticale come la feature (media 4×3 in testa, poi testo);
+       ≥45em   : capped 552 CENTRATO — testo sx + img dx (14.5rem), gap 12;
+       ≥64em   : img sx (10col) + testo ATTACCATO (col 11, 17col), 3col aria in coda;
+       ≥74em   : img sx (11col) + 1col aria (12) + testo (17col), 4col aria in coda.
+     Titolo dimensionato per breakpoint (xs tablet → sm da 1024): il suo box di
+     testo è stretto e una container-query su .preview (552) lo ingrandirebbe a
+     torto; NON spostiamo la query su .preview__text perché `container-type`
+     creerebbe un containing-block e romperebbe il link esteso (deve coprire
+     anche l'immagine). */
+  .preview--list .preview__media + .preview__text { margin-block-start: var(--space-16); }   /* gap mobile media→testo */
+
+  @media (min-width: 45em) {
+    .preview--list {
+      display:               grid;
+      grid-template-columns: 1fr 14.5rem;       /* testo sx · img dx (img dopo il testo) */
+      column-gap:            var(--space-12);
+      inline-size:           100%;              /* riempi l'area, poi cappa: senza, margin auto fa collassare 1fr */
+      max-inline-size:       calc(var(--body) * var(--measure));   /* 552 */
+      margin-inline:         auto;              /* cap 552 centrato */
+      align-items:           center;            /* img e testo centrati verticalmente (da tablet) */
+    }
+    .preview--list .preview__text  { grid-column: 1; grid-row: 1; }
+    .preview--list .preview__media { grid-column: 2; grid-row: 1; aspect-ratio: 4 / 3; }
+    .preview--list .preview__media + .preview__text { margin-block-start: 0; }   /* annulla il gap mobile (stessa specificità del +) */
+    .preview--list .preview__title { font-size: var(--display-xs); line-height: 1.2; }   /* box stretto → xs */
+  }
+  @media (min-width: 64em) {
+    .preview--list {
+      grid-column:           var(--inner);
+      grid-template-columns: repeat(30, 1fr);   /* replica le 30 col interne (subgrid non affidabile qui) */
+      column-gap:            var(--space-24);
+      max-inline-size:       none;
+      margin-inline:         0;
+    }
+    .preview--list .preview__media { grid-column: 1 / span 10; }    /* img sx */
+    .preview--list .preview__text  { grid-column: 11 / span 17; }   /* testo attaccato; 3col aria in coda */
+    .preview--list .preview__title { font-size: var(--display-sm); line-height: 1.1; }   /* box più largo → sm */
+  }
+  @media (min-width: 74em) {
+    .preview--list { grid-template-columns: repeat(33, 1fr); }      /* 33 col interne a 1184 */
+    .preview--list .preview__media { grid-column: 1 / span 11; }
+    .preview--list .preview__text  { grid-column: 13 / span 17; }   /* 1col aria (12) + 4col aria in coda */
+  }
+  /* filetto dotted tra list item */
+  .preview--list + .preview--list {
+    border-block-start:  var(--hairline) dotted var(--line);
+    padding-block-start: var(--space-44);
+  }
+
+  /* ╔═ .derniers ═ rail "Derniers" = 1 feature + N breves + «Voir tout» ═══╗
+     Composizione ENTRO la secondary (`.split > *`: cap 552 sotto 1024;
+     rilasciato a ≥1024, dove la secondary è la colonna stretta).
+       mobile  (<720)  : 1 col — feature in testa, 1 breve, pill.
+       tablet  (≥45em) : 2 col dentro 552 (gutter 48) — feature sx · breves dx.
+       desktop (≥64em) : 1 col (sidebar) — breves in testa, feature in coda.
+     Ordine sorgente = mobile (feature-first); il desktop riordina con order.
+     Filetti dotted tra gli item. ╚═╝ */
+  .derniers         { display: flex; flex-direction: column; gap: var(--space-32); }
+  .derniers__breves { display: flex; flex-direction: column; }
+
+  /* filetto tra breve e breve */
+  .derniers__breves > .preview + .preview {
+    margin-block-start:  var(--space-32);
+    padding-block-start: var(--space-32);
+    border-block-start:  var(--hairline) dotted var(--line);
+  }
+  /* filetto feature ↔ gruppo (mobile: gruppo sotto la feature) */
+  .derniers__breves {
+    padding-block-start: var(--space-32);
+    border-block-start:  var(--hairline) dotted var(--line);
+  }
+
+  /* «Voir tout» = pill (colore via cascade — pass contrasto a parte) */
+  .more {
+    align-self:     center;
+    display:        inline-flex;
+    align-items:    center;
+    gap:            var(--space-08);
+    padding-block:  var(--space-12);
+    padding-inline: var(--space-24);
+    border:         var(--hairline) solid var(--line);
+    border-radius:  100vmax;
+  }
+  .more::after { content: "⌄"; line-height: 1; }
+
+  @media (min-width: 45em) {              /* tablet: 552 in 2 colonne, gutter 48, filetto verticale */
+    .derniers {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: var(--space-48);
+      row-gap:    var(--space-32);
+      align-items: start;
+    }
+    .derniers__title              { grid-column: 1 / -1; }
+    .derniers > .preview--feature { grid-column: 1; }
+    .derniers__breves             { grid-column: 2; position: relative; }
+    .more                         { grid-column: 1 / -1; justify-self: center; }
+    /* il filetto feature↔gruppo diventa VERTICALE, centrato nel gutter (48/2) */
+    .derniers__breves { border-block-start: 0; padding-block-start: 0; }
+    .derniers__breves::before {
+      content: "";
+      position: absolute;
+      inset-block: 0;
+      inset-inline-start: calc(-1 * var(--space-24));
+      border-inline-start: var(--hairline) dotted var(--line);
+    }
+  }
+
+  @media (min-width: 64em) {              /* desktop: 1 col, feature in coda, filetto sopra la feature */
+    .derniers { display: flex; gap: var(--space-32); align-items: stretch; }
+    .derniers > .preview--feature { order: 1; }
+    .more { order: 2; }
+    .derniers__breves::before { content: none; }                  /* via filetto verticale */
+    .derniers > .preview--feature {                               /* feature ora segue il gruppo */
+      padding-block-start: var(--space-32);
+      border-block-start:  var(--hairline) dotted var(--line);
+    }
   }
 }
