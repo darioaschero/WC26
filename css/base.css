@@ -16,6 +16,11 @@
     html { overflow-x: hidden; }
   }
 
+  /* smooth scroll per gli anchor interni (es. «Voir tout» → #news-title); rispetta reduced-motion */
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+
   body { min-height: 100svh; -webkit-font-smoothing: antialiased; }
 
   img, svg, video, picture { display: block; max-width: 100%; }

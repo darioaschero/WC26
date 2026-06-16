@@ -140,7 +140,7 @@
   .site-footer__legal a:hover {
     text-decoration-line:      underline;
     text-decoration-thickness: 1px;
-    text-decoration-color:     color-mix(in srgb, currentColor 40%, transparent);
+    text-decoration-color:     var(--underline-faint);
     text-decoration-skip-ink:  auto;
     text-underline-offset:     0.15em;
   }

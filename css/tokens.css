@@ -53,6 +53,8 @@
     --fg: #ffffff;
     --line: #ffffff;   /* colore dei filetti (tutti) */
     --line-faint: color-mix(in srgb, var(--line) 40%, transparent);   /* filetti d'articolo: 40% del colore linea */
+    --underline-faint: color-mix(in srgb, currentColor 40%, transparent);   /* "linktrap": underline link = 40% del TESTO (currentColor, NON --line) → adatta al contesto */
+    --button-secondary-bg: color-mix(in srgb, currentColor 10%, transparent);   /* fondo .button--secondary + frecce carosello (lo pseudo non può avere la classe) */
     /* Spessori filetti — due pesi:
        STRUTTURALE (cornice, regole di sezione/split, stroke SVG campo+wordmark)
          = 2px netto su mobile, formula fluida × body da tablet (≥40em);
@@ -61,10 +63,10 @@
     --hairline: 1px;
 
     /* ── Focus (tastiera, :focus-visible) ──
-       outline = currentColor: si adatta al contesto come il testo (se il testo
-       è leggibile sul suo fondo, lo è anche l'outline). Override per-contesto
-       dove serve. Tecnica: medienbaecker.com/articles/focus-outlines */
-    --focus-color:  currentColor;
+       outline = currentColor al 40% (si adatta al contesto, attenuato). Override
+       per-contesto dove serve (es. .card--team = bianco: il ring cade sul verde
+       fuori dalla card). Tecnica: medienbaecker.com/articles/focus-outlines */
+    --focus-color:  color-mix(in srgb, currentColor 40%, transparent);
     --focus-width:  2px;
     --focus-offset: 2px;
     --focus-radius: 4px;   /* angoli del ring dove l'elemento non ha già un suo raggio */
