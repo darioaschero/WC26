@@ -45,7 +45,7 @@
            3 = stat (2× .data) · 4 = intro (rich-text + nota) · 5 = placeholder.
            <1024 stack · ≥1024 A(2·3·5) | N vuota | B(4). ── -->
       <section class="section team-hero" aria-labelledby="team-name">
-        <h1 id="team-name" class="team-hero__name team-hero__name--short">
+        <h1 id="team-name" class="team-hero__name">
           <span class="team-hero__fit" data-fitty>Colombie</span>
         </h1>
 
@@ -96,35 +96,262 @@
 
       <hr class="section-rule">
 
-      <!-- ── Sezione giocatori — stessa impalcatura della sezione squadre, ma
-           .cards--grid: ≥1024 GRIGLIA fissa, non chiudibile (niente toggle né
-           frecce); <1024 scroll orizzontale come le team card. La card giocatore
-           è VUOTA (.card--player, placeholder) — contenuto/taglie da Dario. ── -->
+      <!-- ── Sezioni giocatori — .cards--grid (≥1024 griglia fissa · <1024 scroll
+           orizz.). Rosa DEMO (25): 3 gardiens · 8 défenseurs · 8 milieux · 6
+           attaquants. Foto reali, dati placeholder (1 nome a 2 righe: Romero). ── -->
       <section class="section" aria-labelledby="gk-title">
         <h2 id="gk-title" class="section-title"><span class="text-caps">Gardiens</span></h2>
 
         <ul class="cards cards--grid">
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>1</span>
+            <div class="card__photo">
+              <img src="../img/players/arg_emiliano_martinez.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Emiliano Martínez</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Aston Villa</dd></div>
+              <div><dt>Nationalité</dt><dd>Argentine</dd></div>
+              <div><dt>Hauteur</dt><dd>195 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">33</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">22M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>12</span>
+            <div class="card__photo">
+              <img src="../img/players/eng_jordan_pickford.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Jordan Pickford</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Everton</dd></div>
+              <div><dt>Nationalité</dt><dd>Angleterre</dd></div>
+              <div><dt>Hauteur</dt><dd>185 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">31</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">20M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>23</span>
+            <div class="card__photo">
+              <img src="../img/players/esp_joan_garcia.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Joan Garcia</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Barcelone</dd></div>
+              <div><dt>Nationalité</dt><dd>Espagne</dd></div>
+              <div><dt>Hauteur</dt><dd>190 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">24</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">30M</dd>
+              </dl>
+            </div>
+          </li>
         </ul>
       </section>
 
-      <!-- ── Défenseurs · Milieux · Attaquants — stesso carosello/griglia di
-           Gardiens, SENZA separatori tra i gruppi (solo il ritmo di sezione). ── -->
       <section class="section" aria-labelledby="def-title">
         <h2 id="def-title" class="section-title"><span class="text-caps">Défenseurs</span></h2>
 
         <ul class="cards cards--grid">
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>2</span>
+            <div class="card__photo">
+              <img src="../img/players/arg_cristian_romero.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Cristian Gabriel Romero</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Tottenham</dd></div>
+              <div><dt>Nationalité</dt><dd>Argentine</dd></div>
+              <div><dt>Hauteur</dt><dd>185 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">27</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">60M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>4</span>
+            <div class="card__photo">
+              <img src="../img/players/ger_jonathan_tah.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Jonathan Tah</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Bayern</dd></div>
+              <div><dt>Nationalité</dt><dd>Allemagne</dd></div>
+              <div><dt>Hauteur</dt><dd>195 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">29</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">35M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>20</span>
+            <div class="card__photo">
+              <img src="../img/players/por_joao_cancelo.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">João Cancelo</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Al-Hilal</dd></div>
+              <div><dt>Nationalité</dt><dd>Portugal</dd></div>
+              <div><dt>Hauteur</dt><dd>182 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">31</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">18M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>5</span>
+            <div class="card__photo">
+              <img src="../img/players/eng_ezri_konsa.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Ezri Konsa</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Aston Villa</dd></div>
+              <div><dt>Nationalité</dt><dd>Angleterre</dd></div>
+              <div><dt>Hauteur</dt><dd>183 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">28</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">45M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>3</span>
+            <div class="card__photo">
+              <img src="../img/players/rsa_bradley_cross.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Bradley Cross</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Genk</dd></div>
+              <div><dt>Nationalité</dt><dd>Afrique du Sud</dd></div>
+              <div><dt>Hauteur</dt><dd>178 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">24</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">4M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>15</span>
+            <div class="card__photo">
+              <img src="../img/players/tun_ali_abdi.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Ali Abdi</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Côme</dd></div>
+              <div><dt>Nationalité</dt><dd>Tunisie</dd></div>
+              <div><dt>Hauteur</dt><dd>180 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">31</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">5M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>22</span>
+            <div class="card__photo">
+              <img src="../img/players/uzb_farrukh_sayfiev.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Farrukh Sayfiev</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Pakhtakor</dd></div>
+              <div><dt>Nationalité</dt><dd>Ouzbékistan</dd></div>
+              <div><dt>Hauteur</dt><dd>181 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">28</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">2M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>13</span>
+            <div class="card__photo">
+              <img src="../img/players/tun_moutaz_neffati.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Moutaz Neffati</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Étoile du Sahel</dd></div>
+              <div><dt>Nationalité</dt><dd>Tunisie</dd></div>
+              <div><dt>Hauteur</dt><dd>179 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">23</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">3M</dd>
+              </dl>
+            </div>
+          </li>
         </ul>
       </section>
 
@@ -132,12 +359,182 @@
         <h2 id="mid-title" class="section-title"><span class="text-caps">Milieux de terrain</span></h2>
 
         <ul class="cards cards--grid">
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>8</span>
+            <div class="card__photo">
+              <img src="../img/players/arg_alexis_mac_allister.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Alexis Mac Allister</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Liverpool</dd></div>
+              <div><dt>Nationalité</dt><dd>Argentine</dd></div>
+              <div><dt>Hauteur</dt><dd>174 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">26</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">70M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>18</span>
+            <div class="card__photo">
+              <img src="../img/players/esp_martin_zubimendi.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Martin Zubimendi</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Arsenal</dd></div>
+              <div><dt>Nationalité</dt><dd>Espagne</dd></div>
+              <div><dt>Hauteur</dt><dd>181 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">26</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">60M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>6</span>
+            <div class="card__photo">
+              <img src="../img/players/por_joao_neves.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">João Neves</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Paris SG</dd></div>
+              <div><dt>Nationalité</dt><dd>Portugal</dd></div>
+              <div><dt>Hauteur</dt><dd>174 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">21</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">90M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>10</span>
+            <div class="card__photo">
+              <img src="../img/players/uzb_jamshid_iskanderov.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Jamshid Iskanderov</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Pakhtakor</dd></div>
+              <div><dt>Nationalité</dt><dd>Ouzbékistan</dd></div>
+              <div><dt>Hauteur</dt><dd>178 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">31</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">3M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>16</span>
+            <div class="card__photo">
+              <img src="../img/players/swe_lucas_bergvall.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Lucas Bergvall</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Tottenham</dd></div>
+              <div><dt>Nationalité</dt><dd>Suède</dd></div>
+              <div><dt>Hauteur</dt><dd>188 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">19</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">45M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>25</span>
+            <div class="card__photo">
+              <img src="../img/players/ger_assan_ouedraogo.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Assan Ouédraogo</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>RB Leipzig</dd></div>
+              <div><dt>Nationalité</dt><dd>Allemagne</dd></div>
+              <div><dt>Hauteur</dt><dd>191 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">19</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">28M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>21</span>
+            <div class="card__photo">
+              <img src="../img/players/uzb_oston_urunov.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Oston Urunov</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Neftchi</dd></div>
+              <div><dt>Nationalité</dt><dd>Ouzbékistan</dd></div>
+              <div><dt>Hauteur</dt><dd>176 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">29</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">2.5M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>7</span>
+            <div class="card__photo">
+              <img src="../img/players/aus_awer_mabil.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Awer Mabil</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Grasshopper</dd></div>
+              <div><dt>Nationalité</dt><dd>Australie</dd></div>
+              <div><dt>Hauteur</dt><dd>180 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">30</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">3M</dd>
+              </dl>
+            </div>
+          </li>
         </ul>
       </section>
 
@@ -145,12 +542,138 @@
         <h2 id="fwd-title" class="section-title"><span class="text-caps">Attaquants</span></h2>
 
         <ul class="cards cards--grid">
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
-          <li class="card card--player"></li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>19</span>
+            <div class="card__photo">
+              <img src="../img/players/arg_lionel_messi.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Lionel Messi</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Inter Miami</dd></div>
+              <div><dt>Nationalité</dt><dd>Argentine</dd></div>
+              <div><dt>Hauteur</dt><dd>170 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">38</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">25M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>9</span>
+            <div class="card__photo">
+              <img src="../img/players/swe_alexander_isak.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Alexander Isak</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Liverpool</dd></div>
+              <div><dt>Nationalité</dt><dd>Suède</dd></div>
+              <div><dt>Hauteur</dt><dd>192 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">26</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">120M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>17</span>
+            <div class="card__photo">
+              <img src="../img/players/por_rafael_leao.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Rafael Leão</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Milan</dd></div>
+              <div><dt>Nationalité</dt><dd>Portugal</dd></div>
+              <div><dt>Hauteur</dt><dd>188 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">26</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">75M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>11</span>
+            <div class="card__photo">
+              <img src="../img/players/irn_mehdi_taremi.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Mehdi Taremi</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Inter</dd></div>
+              <div><dt>Nationalité</dt><dd>Iran</dd></div>
+              <div><dt>Hauteur</dt><dd>187 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">33</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">8M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>14</span>
+            <div class="card__photo">
+              <img src="../img/players/por_francisco_conceicao.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Francisco Conceição</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Juventus</dd></div>
+              <div><dt>Nationalité</dt><dd>Portugal</dd></div>
+              <div><dt>Hauteur</dt><dd>171 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">23</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">35M</dd>
+              </dl>
+            </div>
+          </li>
+          <li class="card card--player">
+            <span class="card__num text-caps tabular-nums"><span class="sr-only">Numéro </span>24</span>
+            <div class="card__photo">
+              <img src="../img/players/rsa_lyle_foster.png" alt="" width="300" height="390" loading="lazy" decoding="async">
+            </div>
+            <h3 class="card__name text-display-sm">Lyle Foster</h3>
+            <dl class="card__data text-sans-md">
+              <div><dt>Club</dt><dd>Burnley</dd></div>
+              <div><dt>Nationalité</dt><dd>Afrique du Sud</dd></div>
+              <div><dt>Hauteur</dt><dd>184 cm</dd></div>
+            </dl>
+            <div class="card__meta">
+              <dl class="data">
+                <dt class="text-sans-md">Âge</dt>
+                <dd class="text-display-lg">25</dd>
+              </dl>
+              <dl class="data data--end">
+                <dt class="text-sans-md">Valorisation in Euro</dt>
+                <dd class="text-display-lg">14M</dd>
+              </dl>
+            </div>
+          </li>
         </ul>
       </section>
 

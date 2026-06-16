@@ -55,6 +55,9 @@
     --line-faint: color-mix(in srgb, var(--line) 40%, transparent);   /* filetti d'articolo: 40% del colore linea */
     --underline-faint: color-mix(in srgb, currentColor 40%, transparent);   /* "linktrap": underline link = 40% del TESTO (currentColor, NON --line) → adatta al contesto */
     --button-secondary-bg: color-mix(in srgb, currentColor 10%, transparent);   /* fondo .button--secondary + frecce carosello (lo pseudo non può avere la classe) */
+    /* Superficie neutra (NON tematica) — come #fff/#000 della .card: il fondo
+       della foto giocatore è un grigio fisso, indipendente dai colori squadra. */
+    --photo-bg: #f0f0f0;
     /* Spessori filetti — due pesi:
        STRUTTURALE (cornice, regole di sezione/split, stroke SVG campo+wordmark)
          = 2px netto su mobile, formula fluida × body da tablet (≥40em);
