@@ -37,7 +37,7 @@
        Le custom properties NON funzionano dentro la condizione @media:
        il valore va scritto literal in ogni @media. Qui restano come fonte
        unica documentata; il giorno che entra PostCSS diventano @custom-media. */
-    --bp-sm: 45em;     /*  720px — tablet            */
+    --bp-sm: 40em;     /*  640px — tablet            */
     --bp-md: 64em;     /* 1024px — fine-grid 32 col  */
     --bp-lg: 74em;     /* 1184px — fine-grid 37 col  */
     --bp-xl: 86.25em;  /* 1380px — cornice           */
@@ -52,10 +52,23 @@
     --bg: #16a34a;     /* verde campo */
     --fg: #ffffff;
     --line: #ffffff;   /* colore dei filetti (tutti) */
+    --line-faint: color-mix(in srgb, var(--line) 40%, transparent);   /* filetti d'articolo: 40% del colore linea */
     /* Spessori filetti — due pesi:
-       STRUTTURALE (cornice, regole di sezione/split, stroke SVG campo+wordmark) = fluido × body;
-       ARTICOLO (separatori dotted tra preview, pill «Voir tout») = 1px fisso. */
-    --rule:     calc(var(--body) * 0.175);   /* ≈ 3px @17 → 3,5px @20 */
+       STRUTTURALE (cornice, regole di sezione/split, stroke SVG campo+wordmark)
+         = 2px netto su mobile, formula fluida × body da tablet (≥40em);
+       ARTICOLO (separatori tra preview = solid hairline su --line-faint; pill «Voir tout») = 1px fisso. */
+    --rule:     2px;   /* mobile: 2px netto (niente sub-pixel del fluido a body 17) */
     --hairline: 1px;
+
+    /* ── Focus (tastiera, :focus-visible) ──
+       outline = currentColor: si adatta al contesto come il testo (se il testo
+       è leggibile sul suo fondo, lo è anche l'outline). Override per-contesto
+       dove serve. Tecnica: medienbaecker.com/articles/focus-outlines */
+    --focus-color:  currentColor;
+    --focus-width:  2px;
+    --focus-offset: 2px;
+    --focus-radius: 4px;   /* angoli del ring dove l'elemento non ha già un suo raggio */
   }
+  /* da tablet lo spessore strutturale passa alla formula fluida (≈3px @17 → 3,5px @20) */
+  @media (min-width: 40em) { :root { --rule: calc(var(--body) * 0.175); } }
 }
