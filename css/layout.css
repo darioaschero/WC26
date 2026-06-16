@@ -2,7 +2,7 @@
   :root {
     --pad: var(--space-24);   /* 24 — mobile */
   }
-  @media (min-width: 45em) { :root { --pad: var(--space-44); } }  /*  720 → 44 */
+  @media (min-width: 40em) { :root { --pad: var(--space-44); } }  /*  640 → 44 */
   @media (min-width: 64em) { :root { --pad: var(--space-12); } }  /* 1024 → 12 */
 
   /* ── CONTAINER ────────────────────────────────────────────────────────
@@ -106,7 +106,7 @@
   .masthead__cta   { justify-self: end; }       /* CTA a filo del bordo destro */
   /* logo: 40 (2.5rem) → 60 (3.75rem) da tablet; larghezza dal ratio del viewBox */
   .brand svg { block-size: 2.5rem; inline-size: auto; }
-  @media (min-width: 45em) {
+  @media (min-width: 40em) {
     .masthead  { block-size: var(--space-96); }
     .brand svg { block-size: 3.75rem; }
   }
@@ -144,8 +144,13 @@
     text-decoration-skip-ink:  auto;
     text-underline-offset:     0.15em;
   }
+  /* angoli arrotondati del focus ring (l'outline segue il border-radius; questi
+     link non hanno fondo/bordo, quindi il raggio agisce solo sull'outline). */
+  .breadcrumb a,
+  .masthead__cta,
+  .site-footer__legal a { border-radius: var(--focus-radius); }
 
-  @media (min-width: 45em) {
+  @media (min-width: 40em) {
     .site-footer { flex-direction: row; justify-content: space-between; align-items: start; text-align: start; }
     .site-footer__legal { text-align: end; }   /* blocco2 a dx, allineato a dx */
   }
