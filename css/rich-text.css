@@ -68,7 +68,7 @@
   .rich-text a {
     text-decoration-line:     underline;
     text-decoration-skip-ink: auto;
-    text-decoration-color:    color-mix(in srgb, currentColor 40%, transparent);
+    text-decoration-color:    var(--underline-faint);
     transition:               text-decoration-color 120ms ease;
   }
   .rich-text a:hover {

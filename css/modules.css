@@ -237,8 +237,8 @@
      all'hover (l'::after fa scattare :hover su tutta l'area della preview). */
   .preview__title a::after { content: ""; position: absolute; inset: 0; }
   .preview__title a:hover {
-    text-decoration:           underline;
-    text-decoration-color:     color-mix(in srgb, currentColor 40%, transparent);
+    text-decoration-line:      underline;
+    text-decoration-color:     var(--underline-faint);
     text-decoration-thickness: 1px;
     text-underline-offset:     0.15em;
     text-decoration-skip-ink:  auto;
