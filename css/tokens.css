@@ -51,7 +51,7 @@
     /* ── Colori (PLACEHOLDER — da campionare dal mock) ── */
     --bg: #16a34a;     /* verde campo */
     --fg: #ffffff;
-    --line: #ffffff;   /* colore dei filetti (tutti) */
+    --line: var(--fg);   /* filetti (cornice · regole · separatori) = colore testo → segue --fg, sovrascrivibile per-pagina */
     --line-faint: color-mix(in srgb, var(--line) 40%, transparent);   /* filetti d'articolo: 40% del colore linea */
     --underline-faint: color-mix(in srgb, currentColor 40%, transparent);   /* "linktrap": underline link = 40% del TESTO (currentColor, NON --line) → adatta al contesto */
     --button-secondary-bg: color-mix(in srgb, currentColor 10%, transparent);   /* fondo .button--secondary + frecce carosello (lo pseudo non può avere la classe) */
