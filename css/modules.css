@@ -106,7 +106,13 @@
     padding-inline: var(--pad);          /* prima/ultima card a filo contenuto (24 → 44) */
     scroll-padding-inline: var(--pad);
     padding-block: var(--space-24);      /* y=24: la scrollbar resta fuori dalle card */
+
+    /* scrollbar nascosta, scroll/snap intatti (Firefox + IE/Edge legacy) */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
+  /* scrollbar nascosta su WebKit (Chrome/Safari) */
+  .cards::-webkit-scrollbar { display: none; }
   /* scroll animato (click frecce + assestamento snap); il drag resta 1:1 */
   @media (prefers-reduced-motion: no-preference) {
     .cards { scroll-behavior: smooth; }
