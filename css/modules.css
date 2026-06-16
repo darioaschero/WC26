@@ -86,6 +86,120 @@
   @media (min-width: 40em) { .section-title { text-align: center; } }   /* … centrato su tablet … */
   @media (min-width: 64em) { .section-title { text-align: start; max-inline-size: none; margin-inline: 0; } }   /* … sx + rilascio alla fine-grid da 1024 (vale per OGNI section-title) */
 
+  /* ╔═ .team-hero ═ hero pagina squadra ══════════════════════════════════
+     Figli di .section: 1 = NOME (fitty) · 2 = drapeau · 3 = stat (2× .data) ·
+     4 = intro (rich-text + nota) · 5 = coach/groupe/stat (.hero-meta).
+       <1024 : stack nel CAP del nome (--measure 552, centrato) → tutti i
+               blocchi allineati — 1 / (drapeau sx · 2 data a destra) / 4 / 5;
+       ≥1024 : 30 col interne = A(10) · N(2 vuote) · B(18) — 1 a tutta fascia,
+               riga 1 (col modificatore --short → col B, sopra il 4); A = 3·2·5
+               impilati in alto, B = 4 (intro);
+       ≥1184 : 33 col interne = A(11) · N(4 vuote) · B(18). ╚═══════════════╝ */
+
+  .team-hero { row-gap: var(--space-24); }   /* override del row-gap 44 di .section */
+
+  /* — blocco 1: il NOME, scalato con fitty (single-line). La larghezza (cap
+       552 <1024 · inner ≥1024) arriva dal contenitore .team-hero, non da qui.
+       Manuka = faccia unica → il "bold" è il disegno nativo (font-weight 400,
+       no faux-bold; vedi fonts.css). — */
+  .team-hero__name { inline-size: 100%; }
+  /* <span> = bersaglio fitty: riempie la larghezza del nome. fitty imposta
+     inline-block + white-space:nowrap + font-size inline; il clamp è il
+     fallback pre-fitty / no-JS (poi sovrascritto). */
+  .team-hero__fit {
+    font-family:    var(--font-condensed);
+    font-weight:    400;
+    line-height:    0.85;                       /* serrato come .text-display-lg — da tarare */
+    text-transform: uppercase;
+    font-size:      clamp(3rem, 20vw, 16rem);   /* fallback; fitty lo sovrascrive col fit reale */
+  }
+
+  /* — blocco 2: drapeau (SVG circolare) 4× body, bordo INTERNO black 10% di 2px:
+       outline inset (offset −2) → si sovrappone al colore sul bordo, non
+       ingrandisce né rimpicciolisce il cerchio. — */
+  .team-hero__flag {
+    inline-size: calc(var(--body) * 4);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    outline: 2px solid color-mix(in srgb, #000 10%, transparent);
+    outline-offset: -2px;
+  }
+
+  /* — blocco 3: riga stat — due .data. <1024 raggruppati a destra (drapeau a
+       sx), gap 16; ≥1024 agli estremi della col A (valeur sx · classement dx). — */
+  .team-hero__b3 { display: flex; align-items: start; justify-content: end; gap: var(--space-16); }
+
+  /* — blocco 4: intro. Nota fonte (sans-md) staccata sotto il rich-text — */
+  .team-hero__note { margin-block-start: var(--space-24); }
+
+  /* — blocco 5 = .hero-meta : coach + groupe + stat, separati da filetti 1px fg.
+       Etichette (dt) semibold · nome coach display-sm · numeri .tabular-nums.
+       Font base sans-md dal .text-sans-md sul contenitore (come .site-footer). — */
+  .hero-meta { display: flex; flex-direction: column; gap: var(--space-24); }
+  .hero-meta dt { font-weight: var(--weight-semibold); }                          /* tutte le etichette */
+  .hero-meta__coach,
+  .hero-meta__cols  { border-block-start: var(--hairline) solid var(--line); padding-block-start: var(--space-24); }   /* separatore 1px fg + stacco */
+  .hero-meta__coach { display: flex; flex-direction: column; gap: var(--space-04); }   /* label sopra · nome sotto */
+  .hero-meta__cols  { display: grid; grid-template-columns: 1fr 2fr; column-gap: var(--space-24); }   /* groupe (sx, 1fr) · stat (dx, 2fr) */
+  .hero-meta__col   { display: flex; flex-direction: column; gap: var(--space-04); }
+  .hero-meta__groupe    { display: flex; gap: var(--space-08); }                 /* «Groupe K» in linea */
+  .hero-meta__groupe dd { font-weight: var(--weight-semibold); }
+  .hero-meta__stats     { display: grid; grid-template-columns: 1fr auto; column-gap: var(--space-16); row-gap: var(--space-04); }   /* label↔numero auto-distanziati */
+  .hero-meta__stats dd  { font-weight: var(--weight-semibold); text-align: end; }
+
+  /* — <1024 : stack DENTRO il cap del nome (552 centrato) → ogni blocco
+       allineato alla colonna del nome. drapeau (auto) a sx + stat (riempie) coi
+       data a destra; minmax(0,…) tiene DEFINITA la colonna per fitty. — */
+  @media (max-width: 63.9375em) {   /* < 1024 */
+    .team-hero {
+      grid-template-columns: auto minmax(0, 1fr);
+      max-inline-size: calc(var(--body) * var(--measure));   /* 552 — stesso cap del nome */
+      margin-inline: auto;
+    }
+    .team-hero__b2 { grid-column: 1; }                            /* drapeau */
+    .team-hero__b3 { grid-column: 2; }                            /* stat    */
+    .team-hero__b3 .data { align-items: end; text-align: end; }   /* entrambi i data a destra */
+  }
+
+  /* — ≥1024 (32 col) : A=10 (col 2) · N=2 vuote · B=18 (col 14).
+       A = 3·2·5 impilati in alto (align-self start), B = 4 (intro). — */
+  @media (min-width: 64em) {
+    /* RIGHE: 1 = nome · 2·3·4 = pila A (min-content → al contenuto, NON gonfiate
+       dall'intro che le spanna) · 5 = avanzo (1fr) che assorbe l'extra altezza
+       del 4. → la pila A resta serrata in alto (gap reali 24), a prescindere
+       dall'altezza dell'intro. */
+    .team-hero { grid-template-rows: auto repeat(3, min-content) 1fr; }
+    .team-hero__name { grid-row: 1; }   /* nome: inner (da .section > *), riga 1 */
+    .team-hero__name--short { grid-column: 14 / -2; }   /* opz.: nome in col B (come il 4), sopra l'intro */
+    .team-hero__b3 { grid-column: 2 / span 10; grid-row: 2; align-self: start; justify-content: space-between; }   /* A: valeur sx · classement dx */
+    .team-hero__b2 { grid-column: 2 / span 10; grid-row: 3; align-self: start; }   /* A mid    */
+    .team-hero__b5 { grid-column: 2 / span 10; grid-row: 4; align-self: start; }   /* A bottom */
+    .team-hero__b4 { grid-column: 14 / -2; grid-row: 2 / -1; align-self: start; }   /* B: intro, righe 2→fine (l'extra va in riga 5) */
+  }
+
+  /* — ≥1184 (37 col) : A=11 (col 3) · N=4 vuote · B=18 (col 18) — */
+  @media (min-width: 74em) {
+    .team-hero__b3 { grid-column: 3 / span 11; }
+    .team-hero__b2 { grid-column: 3 / span 11; }
+    .team-hero__b5 { grid-column: 3 / span 11; }
+    .team-hero__b4 { grid-column: 18 / -3; }
+    .team-hero__name--short { grid-column: 18 / -3; }
+  }
+
+  /* ╔═ .data ═ dato numerico riusabile (dl/dt/dd) ════════════════════════
+     Valore grande (dd) sopra, etichetta (dt) sotto — taglie dai ruoli nel
+     markup (.text-display-lg + .text-sans-md), come .card__value (migrabile).
+     .data--end : allineato a destra. ╚═══════════════════════════════════════╝ */
+  .data {
+    display: flex;
+    flex-direction: column-reverse;   /* dd (valore) sopra, dt (etichetta) sotto */
+    align-items: start;
+    gap: var(--space-08);             /* stacco valore↔etichetta — da tarare */
+  }
+  .data dt { font-weight: var(--weight-semibold); }   /* etichetta semibold (taglia sans-md dal ruolo nel markup) */
+  .data dd { white-space: nowrap; }                   /* il valore resta su una riga (es. «273,9 M»); l'etichetta può andare a capo */
+  .data--end { align-items: end; text-align: end; }
+
   /* ╔═ .cards ═ carosello full-bleed con snap a pagine ═══════════════════╗
      Card "terzo" = inner/3. I wrapper .slide sono OPZIONALI: servono solo
      dove una pagina raggruppa card "doppie" (1/2). Senza .slide è una fila
@@ -106,7 +220,13 @@
     padding-inline: var(--pad);          /* prima/ultima card a filo contenuto (24 → 44) */
     scroll-padding-inline: var(--pad);
     padding-block: var(--space-24);      /* y=24: la scrollbar resta fuori dalle card */
+
+    /* scrollbar nascosta, scroll/snap intatti (Firefox + IE/Edge legacy) */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
+  /* scrollbar nascosta su WebKit (Chrome/Safari) */
+  .cards::-webkit-scrollbar { display: none; }
   /* scroll animato (click frecce + assestamento snap); il drag resta 1:1 */
   @media (prefers-reduced-motion: no-preference) {
     .cards { scroll-behavior: smooth; }
@@ -248,7 +368,12 @@
     /* toggle → griglia: rientra nella fascia interna, niente bleed/scroll */
     .cards-toggle { display: revert; }   /* da 1024 torna operabile (resta sr-only) */
     .cards-section .cards-all { display: inline-flex; justify-self: center; cursor: pointer; }   /* button visibile, centrato sotto il carosello */
-    .cards-section:has(.cards-toggle:checked) .cards {
+    /* GRIGLIA ≥1024 — due ingressi, stesse regole:
+         · toggle chiudibile (.cards-section:has(.cards-toggle:checked)) — «guide des 48»;
+         · .cards--grid — griglia FISSA non chiudibile (roster giocatori): <1024
+           resta il carosello base, ≥1024 sempre griglia (niente toggle né frecce). */
+    .cards-section:has(.cards-toggle:checked) .cards,
+    .cards--grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);   /* 6 col: terzo = span 2 (1/3), doppia = span 3 (1/2) */
       grid-column: var(--inner);
@@ -258,12 +383,17 @@
       overflow: clip;                   /* niente scroll in griglia */
     }
     /* in griglia le slide diventano trasparenti → le card entrano nella griglia mantenendo la taglia */
-    .cards-section:has(.cards-toggle:checked) .slide { display: contents; }
-    .cards-section:has(.cards-toggle:checked) .card { grid-column: span 2; }                   /* terzo = 1/3 */
-    .cards-section:has(.cards-toggle:checked) .slide--halves > .card { grid-column: span 3; }  /* doppia = 1/2 */
+    .cards-section:has(.cards-toggle:checked) .slide,
+    .cards--grid .slide { display: contents; }
+    .cards-section:has(.cards-toggle:checked) .card,
+    .cards--grid .card { grid-column: span 2; }                   /* terzo = 1/3 */
+    .cards-section:has(.cards-toggle:checked) .slide--halves > .card,
+    .cards--grid .slide--halves > .card { grid-column: span 3; }  /* doppia = 1/2 */
     /* in griglia Chromium genera le frecce lo stesso (overflow:visible non basta) → via */
     .cards-section:has(.cards-toggle:checked) .cards::scroll-button(left),
-    .cards-section:has(.cards-toggle:checked) .cards::scroll-button(right) { display: none; }
+    .cards-section:has(.cards-toggle:checked) .cards::scroll-button(right),
+    .cards--grid::scroll-button(left),
+    .cards--grid::scroll-button(right) { display: none; }
   }
 
   /* ╔═ .preview ═ blocco-testo dell'anteprima articolo (riusabile) ═══════╗

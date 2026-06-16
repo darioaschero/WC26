@@ -120,6 +120,11 @@
   }
   .breadcrumb ol { display: flex; align-items: center; gap: var(--space-08); }
   .breadcrumb li + li::before { content: ">"; margin-inline-end: var(--space-08); }   /* separatore "Une > WC26" */
+  /* dal 3° crumb in poi: nascosto sotto 1024, visibile da 1024. Per POSIZIONE
+     (non :last-child) così la home — 2 crumb — non perde l'ultimo (no regressione). */
+  @media (max-width: 63.9375em) {
+    .breadcrumb li:nth-child(n + 3) { display: none; }
+  }
 
   /* footer: National md regular (utility nel markup). Mobile = colonna centrata,
      blocco1 · 24 · blocco2. Da tablet = riga, blocco1 sx / blocco2 dx. py 24. */
