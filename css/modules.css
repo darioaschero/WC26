@@ -260,11 +260,12 @@
 
   .card__media { aspect-ratio: 3 / 2; background: var(--bg); opacity: .12; }  /* segnaposto */
   .card__value { margin-block-start: auto; }   /* numero ancorato in basso (anche in .card--team) */
-  /* taglie della stat-card (Chiffres clés) — NON valgono per .card--team, che prende
-     le sue taglie dai ruoli display/sans nel markup (la base @layer modules batterebbe i ruoli). */
-  .card:not(.card--team) .card__name         { font-size: 1.15em; }
-  .card:not(.card--team) .card__value strong { display: block; font-size: 1.6em; line-height: 1; }
-  .card:not(.card--team) .card__value span   { font-size: .8em; opacity: .65; }
+  /* taglie della stat-card (Chiffres clés) — NON valgono per .card--team né
+     .card--player, che prendono le taglie dai ruoli display/sans nel markup
+     (la base @layer modules batterebbe i ruoli). */
+  .card:not(.card--team):not(.card--player) .card__name         { font-size: 1.15em; }
+  .card:not(.card--team):not(.card--player) .card__value strong { display: block; font-size: 1.6em; line-height: 1; }
+  .card:not(.card--team):not(.card--player) .card__value span   { font-size: .8em; opacity: .65; }
 
   /* ── .card--team ── variante «guide des 48»: flag avatar · nome · descrizione
      (clamp 4 righe) · «Voir plus» · valutazione (in basso a destra). La shell
@@ -300,6 +301,70 @@
     outline: var(--focus-width) solid var(--focus-color);
     outline-offset: var(--space-08);
     border-radius: 12px;
+  }
+
+  /* ── .card--player ── card roster: foto (cutout B&W su fondo neutro, 10:13) ·
+     numero (badge tondo, alto a dx) · nome · dati (Club/Nationalité/Hauteur) ·
+     Âge + Valorisation (2× .data ancorate in basso). La shell (ratio 2:3 · raddi
+     · padding 24 · #fff/#000) arriva dalla .card. Spaziatura per-elemento
+     (Pattern A, come .card--team), non gap uniforme → gap:0. */
+  .card--player { position: relative; gap: 0; }
+
+  /* foto: box VERTICALE 10:13 (NON a tutta larghezza → il numero sta nel bianco a
+     destra), fondo neutro, raddi 24. Iter. 1: larghezza fissa 40% → foto piccola,
+     così il nome a 2 righe ci sta e l'ALTEZZA della foto resta STABILE (lo slack
+     del nome a 1 riga va nel gap sopra il meta, non nella foto). Prossimo step:
+     far comandare l'altezza (foto riempie il verticale, larghezza derivata) con
+     max-height per breakpoint o clamp. Cutout trasparente → fondo dietro la testa. */
+  .card__photo {
+    align-self: start;
+    /* larghezza fluida 40% → 55% interpolata sul viewport (in rem, come i
+       breakpoint): 40% fino a 1024 (64rem), 55% da 1576 (98.5rem, dove finisce
+       lo scaling del font). 34.5rem = 98.5−64. L'altezza segue da aspect-ratio →
+       la foto resta funzione SOLO della card (larghezza fissa per dato viewport),
+       mai del nome (flex 0 0 → no shrink). */
+    inline-size: clamp(40%, calc(40% + 15% * ((100vw - 64rem) / 34.5rem)), 55%);
+    aspect-ratio: 10 / 13;
+    flex: 0 0 auto;
+    border-radius: 1.5rem;
+    background: var(--photo-bg);
+    overflow: hidden;
+  }
+  .card__photo img { inline-size: 100%; block-size: 100%; object-fit: cover; object-position: center top; }
+
+  /* numero giocatore: badge tondo 44, alto a dx della CARD (nel bianco accanto
+     alla foto). Nero su bianco (neutro, come .card #fff/#000 e .button--primary —
+     non segue il tema). Cifra National maiuscoletto, lining + tabular nel markup. */
+  .card__num {
+    position: absolute;
+    inset-block-start: var(--space-24);
+    inset-inline-end:  var(--space-24);
+    display: inline-flex; align-items: center; justify-content: center;
+    inline-size: 2em; block-size: 2em;   /* tondo 2em → scala col font (non fisso a 44) */
+    padding-block-end: 0.2em;    /* centratura OTTICA della cifra: National ha ascent/descent
+                                    sbilanciati → la cifra cade sotto il centro; il padding (in em →
+                                    scala col font) la rialza. Valore tarato a occhio. */
+    border-radius: 50%;
+    background: #000; color: #fff;
+  }
+
+  /* nome: display-sm dal ruolo nel markup (la base .card__name è esentata sopra) */
+  .card--player .card__name { margin-block-start: var(--space-16); }
+
+  /* dati: righe «etichetta valore» in linea (come «Groupe K» dell'hero), ma qui
+     l'etichetta (dt) è semibold e il VALORE (dd) resta in book. Taglia sans dal
+     ruolo nel markup. */
+  .card__data       { margin-block-start: var(--space-12); display: flex; flex-direction: column; gap: var(--space-04); }
+  .card__data > div { display: flex; gap: var(--space-08); }
+  .card__data dt    { font-weight: var(--weight-semibold); }
+
+  /* Âge (sx) · Valorisation (dx) = 2× .data, stessi stili stat hero (display-lg
+     + sans-md). Allineamenti FISSI da mobile (uno sx, uno dx), ancorate in basso
+     (margin-auto le spinge al fondo della card). */
+  .card__meta {
+    margin-block-start: auto;
+    display: flex; align-items: end; justify-content: space-between;
+    gap: var(--space-16);
   }
 
   /* «Voir tout» = toggle carosello↔griglia: checkbox sr-only + label .cards-all
