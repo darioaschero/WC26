@@ -55,12 +55,21 @@
 
   /* ── Fine grid condivisa dalle sezioni ──────────────────────────────── */
   .section {
-    --section-pad-y: var(--space-72);  /* ritmo verticale; il separatore verticale ci si aggancia per arrivare ai bordi */
+    /* ritmo verticale: rampa responsive (72→96→144), 72 già da mobile. il separatore
+       verticale (.split::before) ci si aggancia col margine negativo per i bordi */
+    --section-pad-y: var(--space-72);
     display: grid;
     column-gap: var(--space-24);
     row-gap: var(--space-44);
     padding-block: var(--section-pad-y);
   }
+  /* .split: solo su mobile più stretto (32); da 640 rientra nella rampa .section.
+     ORDINE: il revert .split@40em sta PRIMA dei passi .section 96/144 (specificità
+     pari) → a ≥1184/1380 vincono i 96/144 anche per .split. */
+  .split { --section-pad-y: var(--space-32); }
+  @media (min-width: 40em)    { .split   { --section-pad-y: var(--space-72);  } }
+  @media (min-width: 74em)    { .section { --section-pad-y: var(--space-96);  } }
+  @media (min-width: 86.25em) { .section { --section-pad-y: var(--space-144); } }
   .section > * { grid-column: var(--inner, 1 / -1); }
   @media (min-width: 64em) { .section { grid-template-columns: repeat(32, 1fr); --inner: 2 / -2; } }
   @media (min-width: 74em) { .section { grid-template-columns: repeat(37, 1fr); --inner: 3 / -3; } }
@@ -97,7 +106,12 @@
      cornice (= 0, come main) da 1380. Override del ramp --pad di `.page > *`
      (24/44/12) → header e footer restano a 24 costante sotto i 1380. */
   .masthead, .site-footer { padding-inline: var(--space-24); }
-  @media (min-width: 86.25em) { .masthead, .site-footer { padding-inline: 0; } }
+  @media (min-width: 86.25em) {
+    .masthead, .site-footer {
+      padding-inline: 0;
+      margin-inline: calc(-1 * var(--space-16));   /* sporge 16/lato oltre il box di .page */
+    }
+  }
 
   /* grid 1fr·auto·1fr → logo SEMPRE centrato a prescindere dalle larghezze
      dei lati (breadcrumb sx, CTA dx). Header alto 72 → 96 da tablet. */

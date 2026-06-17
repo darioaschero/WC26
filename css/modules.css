@@ -13,6 +13,15 @@
   .split > .split__primary   { grid-column: var(--col-primary);   order: 1; }
   .split > .split__secondary { grid-column: var(--col-secondary); order: 3; }
 
+  /* primary: stacco dal separatore orizzontale (stacked); a 2-col (≥1024) sparisce */
+  .split__primary { padding-block-end: var(--space-32); }
+  @media (min-width: 40em) { .split__primary { padding-block-end: var(--space-72); } }
+  @media (min-width: 64em) { .split__primary { padding-block-end: 0; } }
+
+  /* secondary (aside): stacco sopra/sotto nello stacked; a 2-col (≥1024) sparisce */
+  .split__secondary { padding-block: var(--space-32); }
+  @media (min-width: 64em) { .split__secondary { padding-block: 0; } }
+
   /* blocchi: riempi fino al measure, centra (una regola per entrambi) */
   .split > * {
     inline-size: 100%;
@@ -55,6 +64,10 @@
       --col-secondary: 25 / span 11;
     }
   }
+  @media (min-width: 86.25em) {        /* cornice: top più corto (96); il bottom resta su --section-pad-y (144) */
+    .split { padding-block-start: var(--space-96); }
+    .split::before { margin-block-start: calc(-1 * var(--space-96)); }   /* segue il nuovo top, sennò il separatore sborda di 48 sopra */
+  }
   /* ╚════════════════════════════════════════════════════════════════════╝ */
 
   /* ╔═ .wordmark ═ visual hero (SVG) nel .split__primary, sopra l'intro ══╗ */
@@ -96,7 +109,8 @@
                impilati in alto, B = 4 (intro);
        ≥1184 : 33 col interne = A(11) · N(4 vuote) · B(18). ╚═══════════════╝ */
 
-  .team-hero { row-gap: var(--space-24); }   /* override del row-gap 44 di .section */
+  .team-hero { row-gap: var(--space-24); padding-block-start: var(--space-24); }   /* override .section: row-gap 44→24; top corto (--section-pad-y→24), bottom resta sulla ramp */
+  @media (min-width: 74em) { .team-hero { padding-block-start: var(--space-48); row-gap: var(--space-32); } }
 
   /* — blocco 1: il NOME, scalato con fitty (single-line). La larghezza (cap
        552 <1024 · inner ≥1024) arriva dal contenitore .team-hero, non da qui.
@@ -130,7 +144,7 @@
   .team-hero__b3 { display: flex; align-items: start; justify-content: end; gap: var(--space-16); }
 
   /* — blocco 4: intro. Nota fonte (sans-md) staccata sotto il rich-text — */
-  .team-hero__note { margin-block-start: var(--space-24); }
+  .team-hero__note { margin-block-start: var(--space-24); margin-block-end: var(--space-12); }
 
   /* — blocco 5 = .hero-meta : coach + groupe + stat, separati da filetti 1px fg.
        Etichette (dt) semibold · nome coach display-sm · numeri .tabular-nums.
@@ -184,7 +198,16 @@
     .team-hero__b5 { grid-column: 3 / span 11; }
     .team-hero__b4 { grid-column: 18 / -3; }
     .team-hero__name--short { grid-column: 18 / -3; }
+    .team-hero__name { padding-block-end: var(--space-24); }   /* stacco nome → pila/intro a ≥1184 */
   }
+
+  /* ╔═ .section-players ═ sezioni ruolo (GK/DEF/MID/FWD): gruppo compatto ═══
+     row-gap stretto; tra una sezione e l'altra 24/24 (bordi INTERNI), mentre top
+     della 1ª e bottom dell'ultima restano sulla rampa --section-pad-y di .section
+     (bordi ESTERNI). Le 4 sono <section> adiacenti, quindi + e :has(+) bastano. */
+  .section-players { row-gap: var(--space-08); }
+  .section-players + .section-players      { padding-block-start: var(--space-24); }   /* tutte tranne la 1ª */
+  .section-players:has(+ .section-players) { padding-block-end:   var(--space-24); }   /* tutte tranne l'ultima */
 
   /* ╔═ .data ═ dato numerico riusabile (dl/dt/dd) ════════════════════════
      Valore grande (dd) sopra, etichetta (dt) sotto — taglie dai ruoli nel
@@ -200,6 +223,11 @@
   .data dd { white-space: nowrap; }                   /* il valore resta su una riga (es. «273,9 M»); l'etichetta può andare a capo */
   .data--end { align-items: end; text-align: end; }
 
+  /* row-gap di sezione più stretto del default (.section: 44): titolo→carosello→«Voir tout».
+     rampa 8 → 16 (≥1184) */
+  .cards-section { row-gap: var(--space-08); }
+  @media (min-width: 74em) { .cards-section { row-gap: var(--space-16); } }
+
   /* ╔═ .cards ═ carosello full-bleed con snap a pagine ═══════════════════╗
      Card "terzo" = inner/3. I wrapper .slide sono OPZIONALI: servono solo
      dove una pagina raggruppa card "doppie" (1/2). Senza .slide è una fila
@@ -210,7 +238,7 @@
   .cards {
     --card-3: 18.5rem;                   /* "terzo" su mobile = 296 */
     display: flex;
-    gap: var(--space-24);                /* gutter = quello di sezione */
+    gap: var(--space-12);                /* mobile/tablet; torna a 24 (= gutter sezione) da 1024 */
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     align-items: start;                  /* non stirare: vince l'aspect-ratio */
@@ -381,6 +409,7 @@
     /* da 1024 il carosello resta DENTRO --inner (croppato): annullo il full-bleed base.
        grid-column = var(--inner) lo eredita da `.section > *`. */
     .cards {
+      gap: var(--space-24);             /* torna al gutter sezione: il calc del terzo (sotto) lo assume */
       inline-size: auto;
       margin-inline: 0;
       padding-inline: 0;
@@ -424,9 +453,9 @@
       font-size: 1.5em; line-height: 1;
       color: var(--fg); cursor: pointer;
     }
-    /* offset +20 ottico (box 44 nel margine): 24−4, perché in scala non c'è --space-20 */
-    .cards::scroll-button(left)  { content: "‹" / "Précédent"; inset-inline-end:   calc(anchor(left)  + var(--space-24) - var(--space-04)); }
-    .cards::scroll-button(right) { content: "›" / "Suivant";   inset-inline-start: calc(anchor(right) + var(--space-24) - var(--space-04)); }
+    /* offset dal bordo carosello: +4 da 1024; sale a +20 (24−4, niente --space-20 in scala) da 1184 (sotto) */
+    .cards::scroll-button(left)  { content: "‹" / "Précédent"; inset-inline-end:   calc(anchor(left)  + var(--space-04)); }
+    .cards::scroll-button(right) { content: "›" / "Suivant";   inset-inline-start: calc(anchor(right) + var(--space-04)); }
     .cards::scroll-button(left):disabled,
     .cards::scroll-button(right):disabled { opacity: .3; cursor: default; }
 
@@ -459,6 +488,12 @@
     .cards-section:has(.cards-toggle:checked) .cards::scroll-button(right),
     .cards--grid::scroll-button(left),
     .cards--grid::scroll-button(right) { display: none; }
+  }
+
+  /* frecce: da 1184 l'offset ottico sale a +20 (box 44 più dentro la fascia larga) */
+  @media (min-width: 74em) {
+    .cards::scroll-button(left)  { inset-inline-end:   calc(anchor(left)  + var(--space-24) - var(--space-04)); }
+    .cards::scroll-button(right) { inset-inline-start: calc(anchor(right) + var(--space-24) - var(--space-04)); }
   }
 
   /* ╔═ .preview ═ blocco-testo dell'anteprima articolo (riusabile) ═══════╗
@@ -554,6 +589,9 @@
     margin-inline:   auto;
   }
   .preview--list .preview__media + .preview__text { margin-block-start: var(--space-16); }   /* gap mobile media→testo */
+  .preview--list .preview__media { margin-block-start: var(--space-48); }   /* stacco sopra ogni media (row-gap 0): gap titolo→1ª e concorre ai 96 tra card */
+  .preview--list:first-of-type .preview__media { margin-block-start: var(--space-32); }   /* 1ª card: titolo→1ª più corto su mobile */
+  @media (min-width: 40em) { .preview--list:first-of-type .preview__media { margin-block-start: var(--space-48); } }   /* da tablet: 48 come le altre */
 
   @media (min-width: 40em) {
     .preview--list {
@@ -563,7 +601,7 @@
       align-items:           center;            /* img e testo centrati verticalmente (da tablet) */
     }
     .preview--list .preview__text  { grid-column: 1; grid-row: 1; }
-    .preview--list .preview__media { grid-column: 2; grid-row: 1; aspect-ratio: 4 / 3; margin-block: var(--space-24); }   /* 24 y → tiene il ritmo verticale se il testo è più alto */
+    .preview--list .preview__media { grid-column: 2; grid-row: 1; aspect-ratio: 4 / 3; margin-block-end: var(--space-48); }   /* +48 sotto (start 48 dal base) → media 48/48 nella cella centrata */
     .preview--list .preview__media + .preview__text { margin-block-start: 0; }   /* annulla il gap mobile (stessa specificità del +) */
     .preview--list .preview__title { font-size: var(--display-xs); line-height: 1.2; }   /* box stretto → xs */
   }
@@ -584,19 +622,20 @@
     .preview--list .preview__media { grid-column: 1 / span 11; }
     .preview--list .preview__text  { grid-column: 13 / span 17; }   /* 1col aria (12) + 4col aria in coda */
   }
-  /* row-gap 48 = titolo→prima card (come "Derniers"→feature nello split). Tra card
-     invece 96: +48 di margin sull'item successivo (un flow ::before romperebbe la
-     grid da tablet → margin, e il ring resta pulito perché il margin è fuori dal box). */
-  .section:has(.preview--list) { row-gap: var(--space-48); }
-  .preview--list + .preview--list { margin-block-start: var(--space-48); }   /* 48 (row-gap) + 48 = 96 tra card */
+  /* row-gap 0: il gap titolo→1ª card lo dà il margin-block-start del .preview__media.
+     Tra card = 96: mobile via 48 (margin item) + 48 (media-start); da tablet via i 48/48
+     del media (margin item a 0). Niente flow ::before: romperebbe la grid e il ring. */
+  .section-list { row-gap: 0; }
+  .preview--list + .preview--list { margin-block-start: var(--space-48); }   /* mobile: 48 box-to-box (row-gap 0) + 48 media = 96 */
+  @media (min-width: 40em) { .preview--list + .preview--list { margin-block-start: 0; } }   /* da tablet: il gap lo danno i 48/48 del media (end prec. + start succ.) */
   /* filetto tra list item: vive NEL GAP, NON come border+padding sull'item → il box
      .preview resta la sola card e il focus ring (::after = padding box, inset:0) la
-     avvolge pulito. Pseudo absolute a metà dei 96. */
+     avvolge pulito. Pseudo absolute al bordo alto della card → centrato nei 96. */
   .preview--list + .preview--list::before {
     content: "";
     position: absolute;
     inset-inline: 0;
-    inset-block-start: calc(-1 * var(--space-48));   /* metà dei 96 (48 row-gap + 48 margin) → filetto centrato */
+    inset-block-start: 0;   /* bordo alto card: 48 sopra (mobile: margin item; tablet: media-end prec.) + 48 media-start sotto → centrato nei 96 */
     border-block-start: var(--hairline) solid var(--line-faint);
   }
 
@@ -608,7 +647,7 @@
        desktop (≥64em) : 1 col (sidebar) — breves in testa, feature in coda.
      Ordine sorgente = mobile (feature-first); il desktop riordina con order.
      Filetti tra gli item (solid hairline su --line-faint). ╚═╝ */
-  .derniers         { display: flex; flex-direction: column; gap: var(--space-48); }
+  .derniers         { display: flex; flex-direction: column; gap: var(--space-32); }
   .derniers__breves { display: flex; flex-direction: column; gap: var(--space-48); }
 
   /* filetto tra breve e breve: un ::before IN FLUSSO che fa da spacer (block-size)
@@ -624,7 +663,8 @@
   .derniers__breves > .preview + .preview .preview__title a::after { inset-block-start: var(--space-48); }
   /* filetto feature ↔ gruppo (mobile: gruppo sotto la feature) */
   .derniers__breves {
-    padding-block-start: var(--space-48);   /* con gap 48 sopra → filetto centrato nei 96 */
+    margin-block-start:  var(--space-16);   /* +16 oltre il gap 32 del flex → filetto più staccato dalla feature */
+    padding-block-start: var(--space-44);   /* spazio filetto → prima breve */
     border-block-start:  var(--hairline) solid var(--line-faint);
   }
 
@@ -638,7 +678,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       column-gap: var(--space-48);
-      row-gap:    var(--space-48);
+      row-gap:    var(--space-32);
       align-items: start;
     }
     .derniers__title              { grid-column: 1 / -1; }
@@ -646,7 +686,7 @@
     .derniers__breves             { grid-column: 2; position: relative; }
     .more                         { grid-column: 1 / -1; justify-self: center; }
     /* il filetto feature↔gruppo diventa VERTICALE, centrato nel gutter (48/2) */
-    .derniers__breves { border-block-start: 0; padding-block-start: 0; }
+    .derniers__breves { border-block-start: 0; padding-block-start: 0; margin-block-start: 0; }
     .derniers__breves::before {
       content: "";
       position: absolute;
