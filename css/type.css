@@ -38,10 +38,11 @@
 
   /* ── Display Sanomat (fluidi) — taglie dalla ramp (--display-*) ── */
   .text-display-xs {
-    font-family: var(--font-display);
-    font-size:   var(--display-xs);
-    line-height: 1.2;
-    font-weight: var(--weight-semibold);
+    font-family:    var(--font-display);
+    font-size:      var(--display-xs);
+    line-height:    1.2;
+    font-weight:    var(--weight-semibold);
+    letter-spacing: 0.005em;
   }
   .text-display-sm {
     font-family: var(--font-display);
