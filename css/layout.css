@@ -9,22 +9,28 @@
      max-width = body × 74 (TOTALE): 1332 @body18 · 1480 @body20.
      Centra masthead/main/footer. NIENTE padding qui: lo mettono i figli,
      così la cornice su <main> arriva al bordo del container (1332) e non
-     viene rientrata dal padding di 12. */
-  .page {
+     viene rientrata dal padding di 12.
+     ⚠ Selettore `div.page`, NON `.page`: in WordPress il <body> porta la classe
+     `page` (body_class()), quindi `.page` aggancerebbe ANCHE il body → il
+     container si applicherebbe al body e, peggio, `.page > *` impilerebbe il
+     padding due volte (body.page > div.page → div.page > main = doppio --pad).
+     `div.page` colpisce solo il nostro wrapper (la struttura reale è
+     body.page > div.page > main#content). */
+  div.page {
     inline-size: 100%;
     max-inline-size: calc(var(--body) * var(--container));
     margin-inline: auto;
   }
-  .page > * { padding-inline: var(--pad); }   /* header, main, footer → contenuto 1308 */
+  div.page > * { padding-inline: var(--pad); }   /* header, main, footer → contenuto 1308 */
 
   /* 1024 → griglia a 32 col: blocca la max PRIMA del passaggio a 37 (1184).
      1102 (inner) + 24 (pad: 12 × 2) = 1126, in rem (onora il font-size radice). */
   @media (min-width: 64em) {
-    .page { max-inline-size: calc(68.875rem + 2 * var(--pad)); }   /* 68.875rem = 1102 */
+    div.page { max-inline-size: calc(68.875rem + 2 * var(--pad)); }   /* 68.875rem = 1102 */
   }
   /* 1184 → 37 col: la max torna dipendente dal body (74 × body). */
   @media (min-width: 74em) {
-    .page { max-inline-size: calc(var(--body) * var(--container)); }
+    div.page { max-inline-size: calc(var(--body) * var(--container)); }
   }
 
   /* Sotto la cornice: un bordo sopra e uno sotto separano header e footer
