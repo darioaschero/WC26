@@ -1,0 +1,74 @@
+name: publish-dist
+
+# Post-merge: builda il dist e lo pubblica (versionato) sul branch `release` + tag vX.Y.Z.
+# Il sorgente resta vanilla e `dist/` gitignorato: l'UNICO che produce/pubblica il
+# build è questa Action → PR e main restano solo-sorgente.
+on:
+  push:
+    branches: [main]
+    paths:                       # solo modifiche al sorgente → niente build a vuoto
+      - 'css/**'
+      - 'fonts/**'
+      - 'postcss.config.js'
+      - '.browserslistrc'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'scripts/**'
+  workflow_dispatch: {}          # esecuzione manuale dalla tab Actions (per testare)
+
+permissions:
+  contents: write                # commit/tag sul branch release
+
+concurrency:
+  group: publish-dist            # serializza merge ravvicinati (no race sul branch release)
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # storia + tag: servono a stamp-version per calcolare la semver
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: build + stamp (release)
+        env:
+          WC26_RELEASE: '1'       # → stamp-version calcola la semver vera (non "-dev")
+        run: npm run build        # postcss + stamp → dist/ + dist/asset-manifest.json
+
+      - name: publish to `release` branch + tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          VER="$(node -p "require('./dist/asset-manifest.json').version")"
+          echo "Release v${VER}"
+
+          # albero pubblicato = solo ciò che serve al consumer (dist + font referenziati da url(../fonts))
+          tmp="$(mktemp -d)"
+          cp -r dist   "$tmp/dist"
+          cp -r fonts  "$tmp/fonts"
+          cd "$tmp"
+
+          git init -qb release
+          git config user.name  "gc-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add -A
+          git commit -qm "release v${VER} (${GITHUB_SHA::7})"
+
+          url="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push -f "$url" release   # i consumer pinnano i TAG (immutabili), non il tip del branch
+
+          if git ls-remote --tags "$url" "refs/tags/v${VER}" | grep -q .; then
+            echo "tag v${VER} già presente → salto (probabile ri-run senza nuova versione)"
+          else
+            git tag "v${VER}"
+            git push "$url" "v${VER}"
+          fi

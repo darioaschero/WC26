@@ -1,2 +1,6 @@
 .DS_Store
 .claude/
+
+# toolchain PostCSS (build-only)
+node_modules/
+dist/
