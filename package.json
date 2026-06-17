@@ -1,0 +1,17 @@
+{
+  "name": "wc26",
+  "version": "0.1.0",
+  "private": true,
+  "description": "FIFA World Cup 2026 — dossier landing (Le Grand Continent). Il CSS sorgente resta vanilla; PostCSS è SOLO una pipeline di build che produce il dist ottimizzato.",
+  "scripts": {
+    "build": "postcss css/main.css -o dist/main.min.css && node scripts/stamp-version.mjs",
+    "build:watch": "postcss css/main.css -o dist/main.min.css --watch"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.5.0",
+    "cssnano": "^7.1.9",
+    "postcss": "^8.5.15",
+    "postcss-cli": "^11.0.1",
+    "postcss-import": "^16.1.1"
+  }
+}

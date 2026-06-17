@@ -1,8 +1,9 @@
 @charset "utf-8";
 
 /* Ordine dei layer — definito una volta sola, indipendente dall'ordine di import.
-   NB: @import nativo crea waterfall di richieste; in produzione si bundla
-   (postcss-import / Vite). Per ora va bene così. */
+   NB: @import nativo crea waterfall di richieste; in produzione `npm run build`
+   (postcss-import) bundla tutto in dist/main.min.css. In dev si serve questo
+   file direttamente (sorgente vanilla, nessuna build richiesta). */
 @layer reset, tokens, base, type, layout, modules, utilities;
 
 /* @font-face — fuori dai layer, dichiarati per primi */
