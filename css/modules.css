@@ -520,6 +520,13 @@
   @media (min-width: 40em) { .preview__media { aspect-ratio: 1 / 1; } }   /*  640 tablet: 1×1 quadrato  */
   @media (min-width: 64em) { .preview__media { aspect-ratio: 4 / 3; } }   /* 1024: 4×3 paesaggio        */
 
+  /* ── .preview--crop ── reframe dell'immagine: zoom + pan DENTRO il box (che
+     resta a ratio fisso e clippa via overflow:hidden), per scegliere
+     l'inquadratura senza ritoccare il file. Valori tarati per l'immagine
+     dell'articolo che porta il modifier; se servisse su più immagini →
+     tokenizzare (--crop-zoom/--crop-x per istanza). */
+  .preview--crop .preview__media img { transform: scale(1.51) translateX(6%); }
+
   /* media → titolo: gap (Pattern A). Valore non da spec → 16 provvisorio */
   .preview__media + .preview__title { margin-block-start: var(--space-16); }
 
