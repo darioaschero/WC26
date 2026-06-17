@@ -490,6 +490,15 @@
     .cards--grid::scroll-button(right) { display: none; }
   }
 
+  /* Il toggle carosello↔griglia (checkbox + label «Voir tout») dipende da :has():
+     dove manca sarebbe un controllo inerte → lo nascondiamo del tutto e il carosello
+     resta tale, coerente con le frecce ::scroll-button (solo-enhancement Chromium).
+     NB: .cards--grid (roster) non usa :has(), quindi la griglia fissa regge comunque. */
+  @supports not selector(:has(*)) {
+    .cards-toggle,
+    .cards-section .cards-all { display: none; }
+  }
+
   /* frecce: da 1184 l'offset ottico sale a +20 (box 44 più dentro la fascia larga) */
   @media (min-width: 74em) {
     .cards::scroll-button(left)  { inset-inline-end:   calc(anchor(left)  + var(--space-24) - var(--space-04)); }
